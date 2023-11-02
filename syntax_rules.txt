@@ -55,8 +55,7 @@ R26) <Term> ::= <Term> * <Factor> | <Term> / <Factor> | <Factor>
 
 R27) <Factor> ::= - <Primary> | <Primary>
 
-R28) <Primary> ::= <Identifier> | <Integer> | <Identifier> ( <IDs> ) | ( <Expression> ) |
-		   <Real> | true | false
+R28) <Primary> ::= <Identifier> | <Integer> | <Identifier> ( <IDs> ) | ( <Expression> ) | <Real> | true | false
 
 R29) <Empty> ::= epsilon
 
@@ -275,6 +274,13 @@ Remove Backtracking With Left Factoring:
 	<Return> ::= ret <Return Prime>
 	<Return Prime> ::= ; | ret <Expression> ;
 
+R30) <Primary> ::= <Identifier> | <Integer> | <Identifier> ( <IDs> ) | ( <Expression> ) | <Real> | true | false
+
+Remove Backtracking With Left Factoring:
+	New nonterminal = <Primary Prime>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+	<Primary Prime> ::= epsilon | ( <IDs> )
+
 ---------------------------------------------------------------------------------------------------------------------
 
 Syntax Rules After Removing Left Recursion And Backtracking
@@ -327,6 +333,8 @@ R33) <Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression P
 R34) <Term> ::= <Factor> <Term Prime>
 R35) <Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
 R36) <Factor> ::= - <Primary> | <Primary>
-R37) <Primary> ::= <Identifier> | <Integer> | <Identifier> ( <IDs> ) | ( <Expression> ) |
-		   <Real> | true | false
-R38) <Empty> ::= epsilon
+
+>	R37) <Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+>	R38) <Primary Prime> ::= epsilon | ( <IDs> )
+
+R39) <Empty> ::= epsilon
