@@ -1,0 +1,362 @@
+# Rough Outline Of Syntax_Analyzer Functions
+# Recursive Descent Parser (RDP)
+
+# Rule 1
+def Rat23F():
+    OptFunctionDefinitions()
+    '#'
+    OptDeclarationList()
+    StatementList()
+    '#'
+    else:
+        error
+
+# Rule 2
+def OptFunctionDefinitions():
+    if:
+        FunctionDefinitions
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 3
+def FunctionDefinitions():
+    Function()
+    FunctionDefinitionsPrime()
+    else:
+        error
+
+# Rule 4
+def FunctionDefinitionsPrime():
+    if:
+        FunctionDefinitions()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 5
+def Function():
+    'function'
+    Identifier
+    '('
+    OptParameterList()
+    ')'
+    OptDeclarationList()
+    Body()
+    else:
+        error
+
+# Rule 6
+def OptParameterList():
+    if:
+        ParameterList()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 7
+def ParameterList():
+    Parameter()
+    ParameterListPrime()
+    else:
+        error
+
+# Rule 8
+def ParameterListPrime():
+    if:
+        ','
+        ParameterList()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 9
+def Parameter():
+    IDs()
+    Qualifier()
+    else:
+        error
+
+# Rule 10
+def Qualifier():
+    if:
+        'integer' or 'bool' or 'real'
+    else:
+        error
+    
+# Rule 11
+def Body():
+    '{'
+    StatementList()
+    '}'
+    else:
+        error
+
+# Rule 12
+def OptDeclarationList():
+    if:
+        DeclarationList()
+    elif:
+        Empty()
+    else:
+        error    
+
+# Rule 13
+def DeclarationList():
+    Declaration()
+    ';'
+    DeclarationListPrime()
+    else:
+        error
+
+# Rule 14
+def DeclarationListPrime():
+    if:
+        DeclarationList()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 15
+def Declaration():
+    Qualifier()
+    IDs()
+    else:
+        error
+
+# Rule 16
+def IDs():
+    Identifier
+    IDsPrime()
+    else:
+        error
+    
+# Rule 17
+def IDsPrime():
+    if:
+        ','
+        IDs()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 18
+def StatementList():
+    Statement()
+    StatementListPrime()
+    else:
+        error
+
+# Rule 19
+def StatementListPrime():
+    if:
+        StatementList()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 20
+def Statement():
+    if:
+        Compound()
+    elif:
+        Assign()
+    elif:
+        If()
+    elif:
+        Return()
+    elif:
+        Print()
+    elif:
+        Scan()
+    elif:
+        While()
+    else:
+        error
+
+# Rule 21
+def Compound():
+    '{'
+    StatementList()
+    '}'
+    else:
+        error
+
+# Rule 22
+def Assign():
+    Identifier
+    '='
+    Expression()
+    ';'
+    else:
+        error
+
+# Rule 23
+def If():
+    'if'
+    '('
+    Condition()
+    ')'
+    Statement()
+    IfPrime()
+    else:
+        error
+
+# Rule 24
+def IfPrime():
+    if:
+        'endif'
+    elif:
+        'else'
+        Statement()
+        'endif'
+    else:
+        error
+
+# Rule 25
+def Return():
+    'ret'
+    ReturnPrime()
+    else:
+        error
+
+# Rule 26
+def ReturnPrime():
+    if:
+        ';'
+    elif:
+        'ret'
+        Expression()
+        ';'
+    else:
+        error
+
+# Rule 27
+def Print():
+    'put'
+    '('
+    Expression()
+    ')'
+    ';'
+    else:
+        error
+
+# Rule 28
+def Scan():
+    'get'
+    '('
+    IDs()
+    ')'
+    ';'
+    else:
+        error
+
+# Rule 29
+def While():
+    'while'
+    '('
+    Condition()
+    ')'
+    Statement()
+    else:
+        error
+
+# Rule 30
+def Condition():
+    Expression()
+    Relop()
+    Expression()
+    else:
+        error
+
+# Rule 31
+def Relop():
+    if:
+        '==' or '!=' or '>' or '<' or '<=' or '=>'
+    else:
+        error
+
+# Rule 32
+def Expression():
+    Term()
+    ExpressionPrime()
+    else:
+        error
+
+# Rule 33
+def ExpressionPrime():
+    if '+' or '-':
+        Term()
+        ExpressionPrime()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 34
+def Term():
+    Factor()
+    TermPrime()
+    else:
+        error
+        
+# Rule 35
+def TermPrime():
+    if '*' or '/':
+        Factor()
+        TermPrime()
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 36
+def Factor():
+    if '-':
+        Primary()
+    elif:
+        Primary()
+    else:
+        error
+
+# Rule 37
+def Primary():
+    if:
+        Identifier
+        PrimaryPrime()
+    elif:
+        Integer
+    elif:
+        '('
+        Expression()
+        ')'
+    elif:
+        Real
+    elif:
+        'true'
+    elif:
+        'false'
+    else:
+        error
+
+# Rule 38
+def PrimaryPrime():
+    if:
+        '('
+        IDs()
+        ')'
+    elif:
+        Empty()
+    else:
+        error
+
+# Rule 39
+def Empty();
+    # does nothing (epsilon)
