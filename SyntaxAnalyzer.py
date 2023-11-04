@@ -2,8 +2,10 @@
 import time
 import sys
 
+from syntax_rules import *
+
 # define separators, operators and reserved words
-separator = [' ', '\n', '\t', ',', ';', '(', ')', '{', '}', '#']
+separator = [' ', '\t', ',', ';', '(', ')', '{', '}', '#']
 operators = ['+', '-', '*', '/', '=', '<', '>', '<=', '=>', '==', '!=', '!']
 keyword = ['if', 'else', 'endif' ,'while', 'function', 'integer', 'bool', 'real', 'ret', 'put', 'get', 'true', 'false']
 begin_comment = '[*'
@@ -15,6 +17,9 @@ words = []
 # define dictionary to store tokens
 tokens = []
 
+# define current line
+current_line = 1
+
 # Code to read the file and store its words in an array
 def read_file(file_name):
     try:
@@ -25,8 +30,15 @@ def read_file(file_name):
                 char = file.read(1)
                 if not char:
                     break  # End of file, we exit loop
+                # TODO: CHECK IF THIS FIXES ISSUE WITH NEWLINES
+                # check for new line character
+                if char == '\n':
+                    if word:
+                        words.append(word)
+                        word = ""
+                    words.append(char)
                 # check for comments
-                if char == '[':
+                elif char == '[':
                     if word:
                         words.append(word)
                         word = ""
@@ -75,7 +87,7 @@ def read_file(file_name):
                         word = ""
                     # in case that we dont want to store whitespaces
                     #remove "if" to keep whitespaces
-                    if char != ' ' and char != '\n' and char != '\t':
+                    if char != ' ' and char != '\t':
                         words.append(char)
                 else:
                     word += char
@@ -125,20 +137,20 @@ def FSMReal(lexeme):
     # if our final state is 4, then we have a real
     if current_state == 4:
         # store token and lexeme
-        tokens.append({'token': 'real', 'lexeme': lexeme})
+        tokens.append({'token': 'real', 'lexeme': lexeme, 'line': current_line})
     # if our final state is 2, then we have an integer
     elif current_state == 2:
-        tokens.append({'token': 'integer', 'lexeme': lexeme})
+        tokens.append({'token': 'integer', 'lexeme': lexeme, 'line': current_line})
     # in case of failure
     else:
-        tokens.append({'token': 'illegal', 'lexeme': lexeme})
+        tokens.append({'token': 'illegal', 'lexeme': lexeme, 'line': current_line})
 
 # finite state machine for identifiers
 def FSMIdentifier(identifier):
     current_state = 1
     if len(identifier) == 1:
         if identifier.isalpha():
-            tokens.append({'token': 'identifier', 'lexeme': identifier})
+            tokens.append({'token': 'identifier', 'lexeme': identifier, 'line': current_line})
     else:
         for char in identifier:
             # check if the first character is a letter
@@ -169,22 +181,22 @@ def FSMIdentifier(identifier):
                     current_state = 4
         # final state must be 2 because we need to end in a letter
         if current_state == 2:
-            tokens.append({'token': 'identifier', 'lexeme': identifier})
+            tokens.append({'token': 'identifier', 'lexeme': identifier, 'line': current_line})
         else:
-            tokens.append({'token': 'illegal', 'lexeme': identifier})
+            tokens.append({'token': 'illegal', 'lexeme': identifier, 'line': current_line})
 
 # this is the main lexer function, it is in charge of identifying the tokens
 def lexer(word):
     if word in keyword:
-        tokens.append({'token': 'keyword', 'lexeme': word})
+        tokens.append({'token': 'keyword', 'lexeme': word, 'line': current_line})
     elif word in operators:
         # check that word is not the only illegal operator "!", only in list for "!="
         if word == '!':
-            tokens.append({'token': 'illegal', 'lexeme': word})
+            tokens.append({'token': 'illegal', 'lexeme': word, 'line': current_line})
         else:
-            tokens.append({'token': 'operator', 'lexeme': word})
+            tokens.append({'token': 'operator', 'lexeme': word, 'line': current_line})
     elif word in separator:
-        tokens.append({'token': 'separator', 'lexeme': word})
+        tokens.append({'token': 'separator', 'lexeme': word, 'line': current_line})
     # check if it is a real or an integer
     elif word[0].isdigit():
         FSMReal(word)
@@ -192,15 +204,19 @@ def lexer(word):
     elif word[0].isalpha():
         FSMIdentifier(word)
     else:
-        tokens.append({'token': 'illegal', 'lexeme': word})
+        tokens.append({'token': 'illegal', 'lexeme': word, 'line': current_line})
 
 # this functions removes comments from the code
 def commentRemoval(words):
+    global current_line
     # keep track if we are in a comment 
     comment = False
     # iterate through lexemes 
     for word in words:
-        if word == begin_comment:
+        if word == "\n":
+            current_line += 1
+            print(f"Current line: {current_line}")
+        elif word == begin_comment:
             comment = True
         elif comment == False:
             lexer(word)
@@ -209,13 +225,13 @@ def commentRemoval(words):
 
 # this functions prints all the tokens to the main program console
 def print_tokens(tokens):
-    print("token\t\t\tlexeme")
+    print("token\t\t\tlexeme\t\t\tline")
     print("_________________________________\n")
     for token in tokens:
         if token['token'] == 'illegal' or token['token'] == 'keyword' or token['token'] == 'integer' or token['token'] == 'real':
-            print(f"{token['token']}\t\t\t{token['lexeme']}")
+            print(f"{token['token']}\t\t\t{token['lexeme']}\t\t\t{token['line']}")
         else:
-            print(f"{token['token']}\t\t{token['lexeme']}")
+            print(f"{token['token']}\t\t{token['lexeme']}\t\t\t{token['line']}")
 
 # this function generates a file name for the tokens file
 def file_name_generator(file_name):
@@ -227,13 +243,13 @@ def write_tokens(tokens, file_name):
         output_file = file_name_generator(file_name)
         with open(output_file, 'w') as file:
             print(f"\nWriting tokens to file '{output_file}'...\n")
-            file.write("token\t\t\tlexeme\n")
+            file.write("token\t\t\tlexeme\t\t\tline\n")
             file.write("_________________________________\n")
             for token in tokens:
                 if token['token'] == 'illegal' or token['token'] == 'keyword' or token['token'] == 'integer' or token['token'] == 'real':
-                    file.write(f"{token['token']}\t\t\t{token['lexeme']}\n")
+                    file.write(f"{token['token']}\t\t\t{token['lexeme']}\t\t\t{token['line']}\n")
                 else:
-                    file.write(f"{token['token']}\t\t{token['lexeme']}\n")
+                    file.write(f"{token['token']}\t\t{token['lexeme']}\t\t\t{token['line']}\n")
             print(f"Tokens written to file '{output_file}' successfully!\n")
     except FileNotFoundError:
         print(f"The file '{output_file}' was not found.")
@@ -246,6 +262,7 @@ def write_tokens(tokens, file_name):
 
 # Function to analyze a file
 def analyze_file():
+    global current_line
     while True:
         try:
             file_name = input("Please enter the name of the file you want to analyze (or 'q' to quit): ")
@@ -259,6 +276,7 @@ def analyze_file():
                 print(f"\nAnalyzing file '{file_name}'...\n")
                 words.clear()  # Clear the list of words from previous analyses
                 tokens.clear()  # Clear the list of tokens from previous analyses
+                current_line = 1  # Reset the current line to 1
                 read_file(file_name)
                 commentRemoval(words)
                 print_tokens(tokens)
@@ -271,20 +289,25 @@ def analyze_file():
         except Exception as errorMessage:
             print(f"An unexpected error occurred: {str(errorMessage)} Please enter a different file name.")
 
-# User interface
-print("\nWelcome to our Lexical Analyzer!")
+def main():
+    # User interface
+    print("\nWelcome to our Lexical Analyzer!")
 
-# call main function to analyze a file 
-analyze_file()
-# Main loop
-while True:
-    another_analysis = input("Do you want to analyze another file? (yes/no): ").strip().lower()
-    if another_analysis == 'no' or another_analysis == 'n':
-        print("\nThank you for using our Lexical Analyzer!\n")
-        print("Exiting program...")
-        time.sleep(2)
-        sys.exit(0)  # Exit the program if the user does not want to analyze another file
-    elif another_analysis == 'yes' or another_analysis == 'y':
-        analyze_file()
-    else:
-        print("Invalid input. Please enter 'yes' or 'no'.")
+    # call main function to analyze a file 
+    analyze_file()
+    # Main loop
+    while True:
+        another_analysis = input("Do you want to analyze another file? (yes/no): ").strip().lower()
+        if another_analysis == 'no' or another_analysis == 'n':
+            print("\nThank you for using our Lexical Analyzer!\n")
+            print("Exiting program...")
+            time.sleep(2)
+            sys.exit(0)  # Exit the program if the user does not want to analyze another file
+        elif another_analysis == 'yes' or another_analysis == 'y':
+            analyze_file()
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
+
+
+if __name__ == "__main__":
+    main()
