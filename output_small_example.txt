@@ -18,10 +18,58 @@ separator		)
 	<Parameter List Prime> ::= epsilon | <Parameter List>
 	<Empty> ::= epsilon
 separator		{
-	<Opt Declaration List> ::= <Declaration List> | <Empty>
-	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
-	<Declaration> ::= <Qualifier> <IDs>
-identifier		result
-	<Qualifier> ::= integer | boolean | real
-Error: Expected 'integer', 'bool' or 'real' at line 3.
-Reading token:identifier		result
+	<Empty> ::= epsilon
+	<Body> ::= { <Statement List> }
+keyword			if
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+separator		(
+identifier		n
+	<Condition> ::= <Expression> <Relop> <Expression>
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		<=
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+	<Relop> ::= == | != | > | < | <= | =>
+integer			1
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		)
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		{
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+keyword			ret
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Return> ::= return <Return Prime>
+integer			1
+	<Return Prime> ::= ; | <Expression> ;
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		;
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		}
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 5.
+Reading token:separator		}

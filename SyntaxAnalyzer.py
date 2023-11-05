@@ -112,7 +112,8 @@ def OptFunctionDefinitions():
         with open(output_file, "a") as file:
             file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
     FunctionDefinitions()
-    Empty()
+    if current_token['lexeme'] == '#':
+        Empty()
 
 
 # Rule 3
@@ -162,7 +163,10 @@ def Function():
                 if current_token['lexeme'] == ')':
                     get_next_token()
                     print_token()
-                    OptDeclarationList()
+                    if current_token['lexeme'] != '{':
+                        OptDeclarationList()
+                    else:
+                        Empty()
                     Body()
                 else:
                     
@@ -249,6 +253,7 @@ def Parameter():
         print("\t<Parameter> ::= <IDs> <Qualifier>")
         with open(output_file, "a") as file:
             file.write("\t<Parameter> ::= <IDs> <Qualifier>\n")
+    
     IDs()
     Qualifier()
 
@@ -453,13 +458,29 @@ def Statement():
         print("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>")
         with open(output_file, "a") as file:
             file.write("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>\n")
-    Compound()
-    Assign()
-    If()
-    Return()
-    Print()
-    Scan()
-    While()
+    if current_token['lexeme'] == 'if':
+        If()
+    elif current_token['lexeme'] == 'while':
+        While()
+    elif current_token['lexeme'] == 'put':
+        Print_put()
+    elif current_token['lexeme'] == 'get':
+        Scan()
+    elif current_token['lexeme'] == 'ret':
+        Return()
+    elif current_token['token'] == 'identifier':
+        Assign()
+    elif current_token['lexeme'] == '{':
+        Compound()
+    else:
+        
+        print(f"Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{{' at line {current_token['line']}.")
+        print(f"Reading token:", end="")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{{' at line {current_token['line']}.\n")
+            file.write(f"Reading token:")
+        print_token()
+        exit_syntax_analyzer()
 
 
 # Rule 21
@@ -679,7 +700,7 @@ def ReturnPrime():
 
 # Rule 27
 # R27) <Print> ::= put ( <Expression> );
-def Print():
+def Print_put():
     global current_token, switch, output_file
     if switch == False:
         print("\t<Print> ::= put ( <Expression> );")
