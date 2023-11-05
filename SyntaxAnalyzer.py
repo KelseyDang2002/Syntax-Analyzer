@@ -291,7 +291,7 @@ def analyze_file():
 
 def main():
     # User interface
-    print("\nWelcome to our Lexical Analyzer!")
+    print("\nWelcome to our Syntax Analyzer!")
 
     # call main function to analyze a file 
     analyze_file()
@@ -299,7 +299,7 @@ def main():
     while True:
         another_analysis = input("Do you want to analyze another file? (yes/no): ").strip().lower()
         if another_analysis == 'no' or another_analysis == 'n':
-            print("\nThank you for using our Lexical Analyzer!\n")
+            print("\nThank you for using our Syntax Analyzer!\n")
             print("Exiting program...")
             time.sleep(2)
             sys.exit(0)  # Exit the program if the user does not want to analyze another file
