@@ -73,9 +73,7 @@ def Rat23F():
     if current_token['lexeme'] == '#':
         get_next_token()
         print_token()
-        # call second function
         OptDeclarationList()
-        # call third function
         StatementList()
         if current_token['lexeme'] == '#':
             get_next_token()
@@ -90,6 +88,80 @@ def Rat23F():
             file.write(f"Error: Expected '#' at line {current_token['line']}.")
 
 
+# Rule 2
+# R2) <Opt Function Definitions> ::= <Function Definitions> | <Empty>
+def OptFunctionDefinitions():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
+        with open(output_file, "a") as file:
+            file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
+    FunctionDefinitions()
+    Empty()
+
+
+# Rule 3
+# R3) <Function Definitions> ::= <Function> <Function Definitions Prime>
+def FunctionDefinitions():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Function Definitions> ::= <Function> <Function Definitions Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Function Definitions> ::= <Function> <Function Definitions Prime>")
+    Function()
+    FunctionDefinitionsPrime()
+
+
+# Rule 4
+# R4) <Function Definitions Prime> ::= epsilon | <Function Definitions>
+def FunctionDefinitionsPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>")
+        with open(output_file, "a") as file:
+            file.write("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>")
+    Empty()
+    FunctionDefinitions()
+
+#Rule 5
+# R5) <Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+def Function():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>")
+        with open(output_file, "a") as file:
+            file.write("\t<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>")
+    if current_token['lexeme'] == 'function':
+        get_next_token()
+        print_token()
+        if current_token['token'] == 'identifier':
+            get_next_token()
+            print_token()
+            if current_token['lexeme'] == '(':
+                get_next_token()
+                print_token()
+                OptParameterList()
+                if current_token['lexeme'] == ')':
+                    get_next_token()
+                    print_token()
+                    OptDeclarationList()
+                    Body()
+                else:
+                    print(f"Error: Expected ')' at line {current_token['line']}.")
+                    with open(output_file, "a") as file:
+                        file.write(f"Error: Expected ')' at line {current_token['line']}.")
+            else:
+                print(f"Error: Expected '(' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected '(' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected 'identifier' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'function' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'function' keyword at line {current_token['line']}.")
 
 
 # *********************************************************************************************************************************
@@ -362,8 +434,11 @@ def analyze_file():
                 current_line = 1  # Reset the current line to 1
                 read_file(file_name)
                 commentRemoval(words)
+                # TODO: remove print_tokens(tokens) and write_tokens(tokens) before submitting
                 print_tokens(tokens)
                 write_tokens(tokens)
+                # TODO: add rat23f() call here
+                # Rat23F()
                 break
         except FileNotFoundError:
             print(f"The file '{file_name}' was not found. Please enter a valid file name.")
