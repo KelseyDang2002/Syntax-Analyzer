@@ -23,4 +23,7 @@ separator		{
 	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
 	<Declaration> ::= <Qualifier> <IDs>
 	<Qualifier> ::= integer | boolean | real
+separator		{
+separator		{
+Reading token: None
 Error: Expected 'integer', 'bool' or 'real' at line 2.
