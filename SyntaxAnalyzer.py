@@ -51,17 +51,25 @@ def get_next_token():
     if token_index < len(tokens):
         current_token = tokens[token_index]
         token_index += 1
+    else:
+        print("Reached end of file without parsing errors.")
+        with open(output_file, "a") as file:
+            file.write("Reached end of file without parsing errors.\n")
+        change_switch()
+        # exit_syntax_analyzer()
+    
 
 def print_token():
-    global current_token,  output_file
-    if current_token['token'] == 'illegal' or current_token['token'] == 'keyword' or current_token['token'] == 'integer' or current_token['token'] == 'real':
-        print(f"{current_token['token']}\t\t\t{current_token['lexeme']}")
-        with open(output_file, "a") as file:
-            file.write(f"{current_token['token']}\t\t\t{current_token['lexeme']}\n")
-    else:
-        print(f"{current_token['token']}\t\t{current_token['lexeme']}")
-        with open(output_file, "a") as file:
-            file.write(f"{current_token['token']}\t\t{current_token['lexeme']}\n")
+    global current_token,  output_file, switch
+    if switch == False:
+        if current_token['token'] == 'illegal' or current_token['token'] == 'keyword' or current_token['token'] == 'integer' or current_token['token'] == 'real':
+            print(f"{current_token['token']}\t\t\t{current_token['lexeme']}")
+            with open(output_file, "a") as file:
+                file.write(f"{current_token['token']}\t\t\t{current_token['lexeme']}\n")
+        else:
+            print(f"{current_token['token']}\t\t{current_token['lexeme']}")
+            with open(output_file, "a") as file:
+                file.write(f"{current_token['token']}\t\t{current_token['lexeme']}\n")
 
 # Rule 1
 # R1) <Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
@@ -313,6 +321,7 @@ def Body():
     if current_token['lexeme'] == '{':
         get_next_token()
         print_token()
+
         StatementList()
         if current_token['lexeme'] == '}':
             get_next_token()
@@ -450,7 +459,9 @@ def StatementList():
         with open(output_file, "a") as file:
             file.write("\t<Statement List> ::= <Statement> <Statement List Prime>\n")
     Statement()
-    StatementListPrime()
+    if current_token['lexeme'] != '#':  #TODO: MIGHT NEED TO CHANGE THIS
+        StatementListPrime()
+    
 
 
 # Rule 19
@@ -463,7 +474,7 @@ def StatementListPrime():
             file.write("\t<Statement List Prime> ::= <Statement List> | epsilon\n")
     if current_token['lexeme'] != '}':
         StatementList()
-    elif current_token['lexeme'] == '}':
+    else:
         Empty()
 
 
@@ -1351,7 +1362,7 @@ def write_tokens(tokens):
 
 # Function to analyze a file
 def analyze_file():
-    global current_line, output_file
+    global current_line, output_file, switch, token_index
     while True:
         try:
             file_name = input("Please enter the name of the file you want to analyze (or 'q' to quit): ")
@@ -1368,9 +1379,11 @@ def analyze_file():
                 with open(output_file, "w") as file:
                     file.write("")  # This will clear the file's contents
                 print(f"\nAnalyzing file '{file_name}'...\n")
+                switch = False  # Set switch to False to print the rules
                 words.clear()  # Clear the list of words from previous analyses
                 tokens.clear()  # Clear the list of tokens from previous analyses
                 current_line = 1  # Reset the current line to 1
+                token_index = 0  # Reset the token index to 0
                 read_file(file_name)
                 commentRemoval(words)
                 print(tokens)

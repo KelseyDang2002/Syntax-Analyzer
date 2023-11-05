@@ -222,8 +222,4 @@ separator		}
 	<Statement List Prime> ::= <Statement List> | epsilon
 	<Empty> ::= epsilon
 separator		#
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Statement List> ::= <Statement> <Statement List Prime>
-	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
-Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 13.
-Reading token:separator		#
+Reached end of file without parsing errors.
