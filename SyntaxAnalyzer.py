@@ -255,13 +255,15 @@ def Parameter():
 # R10) <Qualifier> ::= integer | bool | real
 def Qualifier():
     global current_token, switch, output_file
+    # get_next_token()
+    # print_token()
     if switch == False:
         print("\t<Qualifier> ::= integer | bool | real")
         with open(output_file, "a") as file:
             file.write("\t<Qualifier> ::= integer | boolean | real\n")
     if current_token['lexeme'] == 'integer':
-        print_token()
         get_next_token()
+        print_token()
     elif current_token['lexeme'] == 'bool':
         get_next_token()
         print_token()
@@ -370,6 +372,8 @@ def Declaration():
         print("\t<Declaration> ::= <Qualifier> <IDs>")
         with open(output_file, "a") as file:
             file.write("\t<Declaration> ::= <Qualifier> <IDs>\n")
+    get_next_token()
+    print_token()
     Qualifier()
     IDs()
 
