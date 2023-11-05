@@ -124,10 +124,15 @@ keyword			endif
 separator		}
 	<Statement List Prime> ::= <Statement List> | epsilon
 	<Empty> ::= epsilon
-separator		}
+separator		#
 	<Function Definitions Prime> ::= epsilon | <Function Definitions>
 	<Empty> ::= epsilon
-	<Function Definitions> ::= <Function> <Function Definitions Prime>
-	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
-Error: Expected 'function' keyword at line 9.
-Reading token:separator		}
+	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
+	<Empty> ::= epsilon
+identifier		factorial
+	<Opt Declaration List> ::= <Declaration List> | <Empty>
+	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
+	<Declaration> ::= <Qualifier> <IDs>
+	<Qualifier> ::= integer | boolean | real
+Error: Expected 'integer', 'bool' or 'real' at line 12.
+Reading token:identifier		factorial

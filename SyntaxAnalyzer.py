@@ -62,14 +62,14 @@ def get_next_token():
 def print_token():
     global current_token,  output_file, switch
     if switch == False:
-        if current_token['token'] == 'illegal' or current_token['token'] == 'keyword' or current_token['token'] == 'integer' or current_token['token'] == 'real':
-            print(f"{current_token['token']}\t\t\t{current_token['lexeme']}")
+        if current_token['token'] == 'illegal' or current_token['token'] == 'keyword' or current_token['token'] == 'integer' or current_token['token'] == 'real' or current_token['token'] == 'operator':
+            print(f"Token: {current_token['token']}\t\t\tLexeme: {current_token['lexeme']}")
             with open(output_file, "a") as file:
-                file.write(f"{current_token['token']}\t\t\t{current_token['lexeme']}\n")
+                file.write(f"Token: {current_token['token']}\t\t\tLexeme: {current_token['lexeme']}\n")
         else:
-            print(f"{current_token['token']}\t\t{current_token['lexeme']}")
+            print(f"Token: {current_token['token']}\t\tLexeme: {current_token['lexeme']}")
             with open(output_file, "a") as file:
-                file.write(f"{current_token['token']}\t\t{current_token['lexeme']}\n")
+                file.write(f"Token: {current_token['token']}\t\tLexeme: {current_token['lexeme']}\n")
 
 # Rule 1
 # R1) <Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
@@ -122,9 +122,10 @@ def OptFunctionDefinitions():
     if current_token['lexeme'] == 'function':
         FunctionDefinitions()
     if current_token['lexeme'] == '#':
-        print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
-        with open(output_file, "a") as file:
-            file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
+        if switch == False:
+            print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
+            with open(output_file, "a") as file:
+                file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
         Empty()
     else:
         print(f"Error: Expected 'function' or '#' at line {current_token['line']}.")
@@ -1386,7 +1387,6 @@ def analyze_file():
                 token_index = 0  # Reset the token index to 0
                 read_file(file_name)
                 commentRemoval(words)
-                print(tokens)
                 # TODO: remove print_tokens(tokens) and write_tokens(tokens) before submitting
                 # print_tokens(tokens)
                 # write_tokens(tokens)
