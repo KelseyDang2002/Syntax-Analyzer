@@ -17,23 +17,11 @@ keyword			integer
 separator		)
 	<Parameter List Prime> ::= epsilon | <Parameter List>
 	<Empty> ::= epsilon
-	<Empty> ::= epsilon
 separator		{
 	<Opt Declaration List> ::= <Declaration List> | <Empty>
 	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
 	<Declaration> ::= <Qualifier> <IDs>
-keyword			integer
-	<Qualifier> ::= integer | boolean | real
 identifier		result
-	<IDs> ::= <Identifier> <IDs Prime>
-separator		;
-	<IDs Prime> ::= , <IDs> | epsilon
-	<Empty> ::= epsilon
-keyword			if
-	<Declaration List Prime> ::= <Declaration List> | epsilon
-	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
-	<Declaration> ::= <Qualifier> <IDs>
-separator		(
 	<Qualifier> ::= integer | boolean | real
-Error: Expected 'integer', 'bool' or 'real' at line 4.
-Reading token:separator		(
+Error: Expected 'integer', 'bool' or 'real' at line 3.
+Reading token:identifier		result

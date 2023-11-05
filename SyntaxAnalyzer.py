@@ -155,7 +155,10 @@ def Function():
             if current_token['lexeme'] == '(':
                 get_next_token()
                 print_token()
-                OptParameterList()
+                if current_token['lexeme'] != ')':
+                    OptParameterList()
+                else:
+                    Empty()
                 if current_token['lexeme'] == ')':
                     get_next_token()
                     print_token()
@@ -208,7 +211,6 @@ def OptParameterList():
         with open(output_file, "a") as file:
             file.write("\t<Opt Parameter List> ::= <Parameter List> | <Empty>\n")
     ParameterList()
-    Empty()
 
 
 # Rule 7
@@ -360,8 +362,10 @@ def DeclarationListPrime():
         print("\t<Declaration List Prime> ::= <Declaration List> | epsilon")
         with open(output_file, "a") as file:
             file.write("\t<Declaration List Prime> ::= <Declaration List> | epsilon\n")
-    DeclarationList()
-    Empty()
+    if current_token['lexeme'] == 'integer' or current_token['lexeme'] == 'bool' or current_token['lexeme'] == 'real':
+        DeclarationList()
+    else:
+        Empty()
 
 
 # Rule 15
