@@ -1,0 +1,229 @@
+keyword			function
+	<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
+	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
+	<Function Definitions> ::= <Function> <Function Definitions Prime>
+	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+identifier		convert1x
+separator		(
+identifier		fahr
+	<Opt Parameter List> ::= <Parameter List> | <Empty>
+	<Parameter List> ::= <Parameter> <Parameter List Prime>
+	<Parameter> ::= <IDs> <Qualifier>
+	<IDs> ::= <Identifier> <IDs Prime>
+keyword			integer
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+	<Qualifier> ::= integer | boolean | real
+separator		)
+	<Parameter List Prime> ::= epsilon | <Parameter List>
+	<Empty> ::= epsilon
+separator		{
+	<Empty> ::= epsilon
+	<Body> ::= { <Statement List> }
+keyword			ret
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Return> ::= return <Return Prime>
+integer			5
+	<Return Prime> ::= ; | <Expression> ;
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		*
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+separator		(
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+identifier		fahr
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		-
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+integer			32
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		)
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+operator		/
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+integer			9
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		;
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		}
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Empty> ::= epsilon
+separator		#
+	<Function Definitions Prime> ::= epsilon | <Function Definitions>
+	<Empty> ::= epsilon
+	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
+	<Empty> ::= epsilon
+keyword			integer
+	<Opt Declaration List> ::= <Declaration List> | <Empty>
+	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
+	<Declaration> ::= <Qualifier> <IDs>
+	<Qualifier> ::= integer | boolean | real
+identifier		low
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		,
+	<IDs Prime> ::= , <IDs> | epsilon
+identifier		high
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		,
+	<IDs Prime> ::= , <IDs> | epsilon
+identifier		step
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		;
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+keyword			get
+	<Declaration List Prime> ::= <Declaration List> | epsilon
+	<Empty> ::= epsilon
+	<Empty> ::= epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Scan> ::= get ( <IDs> );
+separator		(
+identifier		low
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		,
+	<IDs Prime> ::= , <IDs> | epsilon
+identifier		high
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		,
+	<IDs Prime> ::= , <IDs> | epsilon
+identifier		step
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		)
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+separator		;
+keyword			while
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<While> ::= while ( <Condition> ) <Statement>
+separator		(
+identifier		low
+	<Condition> ::= <Expression> <Relop> <Expression>
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		<=
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+	<Relop> ::= == | != | > | < | <= | =>
+identifier		high
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		)
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		{
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+keyword			put
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Print> ::= put ( <Expression> );
+separator		(
+identifier		low
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		)
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		;
+keyword			put
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Print> ::= put ( <Expression> );
+separator		(
+identifier		convert1x
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		(
+	<Primary Prime> ::= epsilon | ( <IDs> )
+identifier		low
+	<IDs> ::= <Identifier> <IDs Prime>
+separator		)
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+separator		)
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		;
+identifier		low
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Assign> ::= <Identifier> = <Expression> ;
+operator		=
+identifier		low
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		+
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+identifier		step
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		;
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		}
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Empty> ::= epsilon
+separator		#
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 13.
+Reading token:separator		#

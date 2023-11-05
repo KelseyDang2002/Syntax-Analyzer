@@ -111,9 +111,21 @@ def OptFunctionDefinitions():
         print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
         with open(output_file, "a") as file:
             file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
-    FunctionDefinitions()
+    if current_token['lexeme'] == 'function':
+        FunctionDefinitions()
     if current_token['lexeme'] == '#':
+        print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
+        with open(output_file, "a") as file:
+            file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
         Empty()
+    else:
+        print(f"Error: Expected 'function' or '#' at line {current_token['line']}.")
+        print(f"Reading token:", end="")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'function' or '#' at line {current_token['line']}.\n")
+            file.write(f"Reading token:")
+        print_token()
+        exit_syntax_analyzer()
 
 
 # Rule 3
@@ -136,8 +148,10 @@ def FunctionDefinitionsPrime():
         print("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>")
         with open(output_file, "a") as file:
             file.write("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>\n")
-    Empty()
-    FunctionDefinitions()
+    if current_token['lexeme'] == 'function':
+        FunctionDefinitions()
+    else:
+        Empty()
 
 #Rule 5
 # R5) <Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
@@ -381,8 +395,9 @@ def Declaration():
         print("\t<Declaration> ::= <Qualifier> <IDs>")
         with open(output_file, "a") as file:
             file.write("\t<Declaration> ::= <Qualifier> <IDs>\n")
-    get_next_token()
-    print_token()
+    if current_token['lexeme'] == '{':
+        get_next_token()
+        print_token()
     Qualifier()
     IDs()
 
@@ -448,7 +463,7 @@ def StatementListPrime():
             file.write("\t<Statement List Prime> ::= <Statement List> | epsilon\n")
     if current_token['lexeme'] != '}':
         StatementList()
-    else:
+    elif current_token['lexeme'] == '}':
         Empty()
 
 

@@ -92,13 +92,42 @@ operator		*
 identifier		factorial
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
-separator		(
+separator		;
 	<Primary Prime> ::= epsilon | ( <IDs> )
-identifier		n
-	<IDs> ::= <Identifier> <IDs Prime>
-operator		-
-	<IDs Prime> ::= , <IDs> | epsilon
 	<Empty> ::= epsilon
-operator		-
-Error: Expected ')' at line 6.
-Reading token:
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+keyword			ret
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Return> ::= return <Return Prime>
+identifier		result
+	<Return Prime> ::= ; | <Expression> ;
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		;
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+separator		}
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Empty> ::= epsilon
+keyword			endif
+separator		}
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Empty> ::= epsilon
+separator		}
+	<Function Definitions Prime> ::= epsilon | <Function Definitions>
+	<Empty> ::= epsilon
+	<Function Definitions> ::= <Function> <Function Definitions Prime>
+	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+Error: Expected 'function' keyword at line 9.
+Reading token:separator		}
