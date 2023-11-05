@@ -1,0 +1,37 @@
+keyword			function
+	<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
+	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
+	<Function Definitions> ::= <Function> <Function Definitions Prime>
+	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+identifier		AddNums
+separator		(
+identifier		numOne
+	<Opt Parameter List> ::= <Parameter List> | <Empty>
+	<Parameter List> ::= <Parameter> <Parameter List Prime>
+	<Parameter> ::= <IDs> <Qualifier>
+	<IDs> ::= <Identifier> <IDs Prime>
+keyword			integer
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+	<Qualifier> ::= integer | boolean | real
+keyword			integer
+	<Parameter List Prime> ::= epsilon | <Parameter List>
+identifier		numTwo
+	<Parameter List> ::= <Parameter> <Parameter List Prime>
+	<Parameter> ::= <IDs> <Qualifier>
+	<IDs> ::= <Identifier> <IDs Prime>
+keyword			integer
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+	<Qualifier> ::= integer | boolean | real
+keyword			integer
+	<Parameter List Prime> ::= epsilon | <Parameter List>
+	<Empty> ::= epsilon
+	<Empty> ::= epsilon
+separator		{
+	<Opt Declaration List> ::= <Declaration List> | <Empty>
+	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
+	<Declaration> ::= <Qualifier> <IDs>
+	<Qualifier> ::= integer | boolean | real
+Error: Expected 'integer', 'bool' or 'real' at line 2.
+Reading token:separator		{
