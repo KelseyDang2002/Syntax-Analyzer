@@ -446,8 +446,10 @@ def StatementListPrime():
         print("\t<Statement List Prime> ::= <Statement List> | epsilon")
         with open(output_file, "a") as file:
             file.write("\t<Statement List Prime> ::= <Statement List> | epsilon\n")
-    StatementList()
-    Empty()
+    if current_token['lexeme'] != '}':
+        StatementList()
+    else:
+        Empty()
 
 
 # Rule 20
@@ -584,6 +586,7 @@ def If():
                 get_next_token()
                 print_token()
                 Statement()
+
                 IfPrime()
             else:
                 

@@ -69,7 +69,36 @@ separator		;
 	<Empty> ::= epsilon
 separator		}
 	<Statement List Prime> ::= <Statement List> | epsilon
+	<Empty> ::= epsilon
+keyword			else
+	<If Prime> ::= endif | else <Statement> endif
+separator		{
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+identifier		result
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
-Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 5.
-Reading token:separator		}
+	<Assign> ::= <Identifier> = <Expression> ;
+operator		=
+identifier		n
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+operator		*
+	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+identifier		factorial
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+separator		(
+	<Primary Prime> ::= epsilon | ( <IDs> )
+identifier		n
+	<IDs> ::= <Identifier> <IDs Prime>
+operator		-
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+operator		-
+Error: Expected ')' at line 6.
+Reading token:
