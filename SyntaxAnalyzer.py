@@ -164,6 +164,565 @@ def Function():
             file.write(f"Error: Expected 'function' keyword at line {current_token['line']}.")
 
 
+# Rule 6
+# R6) <Opt Parameter List> ::= <Parameter List> | <Empty>
+def OptParameterList():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Opt Parameter List> ::= <Parameter List> | <Empty>")
+        with open(output_file, "a") as file:
+            file.write("\t<Opt Parameter List> ::= <Parameter List> | <Empty>")
+    ParameterList()
+    Empty()
+
+
+# Rule 7
+# R7) <Parameter List> ::= <Parameter> <Parameter List Prime>
+def ParameterList():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Parameter List> ::= <Parameter> <Parameter List Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Parameter List> ::= <Parameter> <Parameter List Prime>")
+    Parameter()
+    ParameterListPrime()
+
+
+# Rule 8
+# R8) <Parameter List Prime> ::= epsilon | <Parameter List>
+def ParameterListPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Parameter List Prime> ::= epsilon | <Parameter List>")
+        with open(output_file, "a") as file:
+            file.write("\t<Parameter List Prime> ::= epsilon | <Parameter List>")
+    if current_token['lexeme'] == ',':
+        get_next_token()
+        print_token()
+        ParameterList()
+    else:
+        Empty()
+
+
+# Rule 9
+# R9) <Parameter> ::= <IDs> <Qualifier>
+def Parameter():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Parameter> ::= <IDs> <Qualifier>")
+        with open(output_file, "a") as file:
+            file.write("\t<Parameter> ::= <IDs> <Qualifier>")
+    IDs()
+    Qualifier()
+
+
+# Rule 10
+# R10) <Qualifier> ::= integer | bool | real
+def Qualifier():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Qualifier> ::= integer | bool | real")
+        with open(output_file, "a") as file:
+            file.write("\t<Qualifier> ::= integer | boolean | real")
+    if current_token['lexeme'] == 'integer':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == 'bool':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == 'real':
+        get_next_token()
+        print_token()
+    else:
+        print(f"Error: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.")
+
+
+# Rule 11
+# R11) <Body> ::= { <Statement List> }
+def Body():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Body> ::= { <Statement List> }")
+        with open(output_file, "a") as file:
+            file.write("\t<Body> ::= { <Statement List> }")
+    if current_token['lexeme'] == '{':
+        get_next_token()
+        print_token()
+        StatementList()
+        if current_token['lexeme'] == '}':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected '}}' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '}}' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected '{{' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected '{{' at line {current_token['line']}.")
+
+
+# Rule 12
+# R12) <Opt Declaration List> ::= <Declaration List> | <Empty>
+def OptDeclarationList():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Opt Declaration List> ::= <Declaration List> | <Empty>")
+        with open(output_file, "a") as file:
+            file.write("\t<Opt Declaration List> ::= <Declaration List> | <Empty>")
+    DeclarationList()
+    Empty()
+
+
+# Rule 13
+# R13) <Declaration List> ::= <Declaration> ; <Declaration List Prime>
+def DeclarationList():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Declaration List> ::= <Declaration> ; <Declaration List Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Declaration List> ::= <Declaration> ; <Declaration List Prime>")
+    Declaration()
+    if current_token['lexeme'] == ';':
+        get_next_token()
+        print_token()
+        DeclarationListPrime()
+    else:
+        print(f"Error: Expected ';' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected ';' at line {current_token['line']}.")
+
+
+# Rule 14
+# R14) <Declaration List Prime> ::= <Declaration List> | epsilon
+def DeclarationListPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Declaration List Prime> ::= <Declaration List> | epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<Declaration List Prime> ::= <Declaration List> | epsilon")
+    DeclarationList()
+    Empty()
+
+
+# Rule 15
+# R15) <Declaration> ::= <Qualifier> <IDs>
+def Declaration():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Declaration> ::= <Qualifier> <IDs>")
+        with open(output_file, "a") as file:
+            file.write("\t<Declaration> ::= <Qualifier> <IDs>")
+    Qualifier()
+    IDs()
+
+
+# Rule 16
+# R16) <IDs> ::= <Identifier> <IDs Prime>
+def IDs():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<IDs> ::= <Identifier> <IDs Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<IDs> ::= <Identifier> <IDs Prime>")
+    if current_token['token'] == 'identifier':
+        get_next_token()
+        print_token()
+        IDsPrime()
+    else:
+        print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'identifier' at line {current_token['line']}.")
+
+
+# Rule 17
+# R17) <IDs Prime> ::= , <IDs> | epsilon
+def IDsPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<IDs Prime> ::= , <IDs> | epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<IDs Prime> ::= , <IDs> | epsilon")
+    if current_token['lexeme'] == ',':
+        get_next_token()
+        print_token()
+        IDs()
+    else:
+        Empty()
+
+
+# Rule 18
+# R18) <Statement List> ::= <Statement> <Statement List Prime>
+def StatementList():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Statement List> ::= <Statement> <Statement List Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Statement List> ::= <Statement> <Statement List Prime>")
+    Statement()
+    StatementListPrime()
+
+
+# Rule 19
+# R19) <Statement List Prime> ::= <Statement List> | epsilon
+def StatementListPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Statement List Prime> ::= <Statement List> | epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<Statement List Prime> ::= <Statement List> | epsilon")
+    StatementList()
+    Empty()
+
+
+# Rule 20
+# R20) <Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+def Statement():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>")
+        with open(output_file, "a") as file:
+            file.write("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>")
+    Compound()
+    Assign()
+    If()
+    Return()
+    Print()
+    Scan()
+    While()
+
+
+# Rule 21
+# R21) <Compound> ::= { <Statement List> }
+def Compound():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Compound> ::= { <Statement List> }")
+        with open(output_file, "a") as file:
+            file.write("\t<Compound> ::= { <Statement List> }")
+    if current_token['lexeme'] == '{':
+        get_next_token()
+        print_token()
+        StatementList()
+        if current_token['lexeme'] == '}':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected '}}' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '}}' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected '{{' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected '{{' at line {current_token['line']}.")
+
+
+# Rule 22
+# R22) <Assign> ::= <Identifier> = <Expression> ;
+def Assign():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Assign> ::= <Identifier> = <Expression> ;")
+        with open(output_file, "a") as file:
+            file.write("\t<Assign> ::= <Identifier> = <Expression> ;")
+    if current_token['token'] == 'identifier':
+        get_next_token()
+        print_token()
+        if current_token['lexeme'] == '=':
+            get_next_token()
+            print_token()
+            Expression()
+            if current_token['lexeme'] == ';':
+                get_next_token()
+                print_token()
+            else:
+                print(f"Error: Expected ';' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected ';' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected '=' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '=' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'identifier' at line {current_token['line']}.")
+
+
+# Rule 23
+# R23) <If> ::= if ( <Condition> ) <Statement> <If Prime>
+def If():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<If> ::= if ( <Condition> ) <Statement> <If Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<If> ::= if ( <Condition> ) <Statement> <If Prime>")
+    if current_token['lexeme'] == 'if':
+        get_next_token()
+        print_token()
+        if current_token['lexeme'] == '(':
+            get_next_token()
+            print_token()
+            Condition()
+            if current_token['lexeme'] == ')':
+                get_next_token()
+                print_token()
+                Statement()
+                IfPrime()
+            else:
+                print(f"Error: Expected ')' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected ')' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected '(' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '(' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'if' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'if' keyword at line {current_token['line']}.")
+
+
+# Rule 24
+# R24) <If Prime> ::= endif | else <Statement> endif
+def IfPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<If Prime> ::= endif | else <Statement> endif")
+        with open(output_file, "a") as file:
+            file.write("\t<If Prime> ::= endif | else <Statement> endif")
+    if current_token['lexeme'] == 'endif':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == 'else':
+        get_next_token()
+        print_token()
+        Statement()
+        if current_token['lexeme'] == 'endif':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected 'endif' keyword at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected 'endif' keyword at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'endif' or 'else' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'endif' or 'else' keyword at line {current_token['line']}.")
+
+
+# Rule 25
+# R25) <Return> ::= ret <Return Prime>
+def Return():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Return> ::= return <Return Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Return> ::= return <Return Prime>")
+    if current_token['lexeme'] == 'ret':
+        get_next_token()
+        print_token()
+        ReturnPrime()
+    else:
+        print(f"Error: Expected 'ret' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'ret' keyword at line {current_token['line']}.")
+
+
+# Rule 26
+# R26) <Return Prime> ::= ; | <Expression> ;
+def ReturnPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Return Prime> ::= ; | <Expression> ;")
+        with open(output_file, "a") as file:
+            file.write("\t<Return Prime> ::= ; | <Expression> ;")
+    if current_token['lexeme'] == ';':
+        get_next_token()
+        print_token()
+    else:
+        Expression()
+        if current_token['lexeme'] == ';':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected ';' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected ';' at line {current_token['line']}.")
+
+
+# Rule 27
+# R27) <Print> ::= put ( <Expression> );
+def Print():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Print> ::= put ( <Expression> );")
+        with open(output_file, "a") as file:
+            file.write("\t<Print> ::= put ( <Expression> );")
+    if current_token['lexeme'] == 'put':
+        get_next_token()
+        print_token()
+        if current_token['lexeme'] == '(':
+            get_next_token()
+            print_token()
+            Expression()
+            if current_token['lexeme'] == ')':
+                get_next_token()
+                print_token()
+                if current_token['lexeme'] == ';':
+                    get_next_token()
+                    print_token()
+                else:
+                    print(f"Error: Expected ';' at line {current_token['line']}.")
+                    with open(output_file, "a") as file:
+                        file.write(f"Error: Expected ';' at line {current_token['line']}.")
+            else:
+                print(f"Error: Expected ')' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected ')' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected '(' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '(' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'put' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'put' keyword at line {current_token['line']}.")
+
+
+# Rule 28
+# R28) <Scan> ::= get ( <IDs> );
+def Scan():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Scan> ::= get ( <IDs> );")
+        with open(output_file, "a") as file:
+            file.write("\t<Scan> ::= get ( <IDs> );")
+    if current_token['lexeme'] == 'get':
+        get_next_token()
+        print_token()
+        if current_token['lexeme'] == '(':
+            get_next_token()
+            print_token()
+            IDs()
+            if current_token['lexeme'] == ')':
+                get_next_token()
+                print_token()
+                if current_token['lexeme'] == ';':
+                    get_next_token()
+                    print_token()
+                else:
+                    print(f"Error: Expected ';' at line {current_token['line']}.")
+                    with open(output_file, "a") as file:
+                        file.write(f"Error: Expected ';' at line {current_token['line']}.")
+            else:
+                print(f"Error: Expected ')' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected ')' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected '(' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '(' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'get' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'get' keyword at line {current_token['line']}.")
+
+
+# Rule 29
+# R29) <While> ::= while ( <Condition> ) <Statement>
+def While():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<While> ::= while ( <Condition> ) <Statement>")
+        with open(output_file, "a") as file:
+            file.write("\t<While> ::= while ( <Condition> ) <Statement>")
+    if current_token['lexeme'] == 'while':
+        get_next_token()
+        print_token()
+        if current_token['lexeme'] == '(':
+            get_next_token()
+            print_token()
+            Condition()
+            if current_token['lexeme'] == ')':
+                get_next_token()
+                print_token()
+                Statement()
+            else:
+                print(f"Error: Expected ')' at line {current_token['line']}.")
+                with open(output_file, "a") as file:
+                    file.write(f"Error: Expected ')' at line {current_token['line']}.")
+        else:
+            print(f"Error: Expected '(' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '(' at line {current_token['line']}.")
+    else:
+        print(f"Error: Expected 'while' keyword at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'while' keyword at line {current_token['line']}.")
+
+
+# Rule 30
+# R30) <Condition> ::= <Expression> <Relop> <Expression>
+def Condition():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Condition> ::= <Expression> <Relop> <Expression>")
+        with open(output_file, "a") as file:
+            file.write("\t<Condition> ::= <Expression> <Relop> <Expression>")
+    Expression()
+    Relop()
+    Expression()
+
+
+# Rule 31
+# R31) <Relop> ::= == | ^= | > | < | => | =<
+def Relop():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Relop> ::= == | ^= | > | < | => | =<")
+        with open(output_file, "a") as file:
+            file.write("\t<Relop> ::= == | ^= | > | < | => | =<")
+    if current_token['lexeme'] == '==':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '^=':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '>':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '<':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '=>':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '=<':
+        get_next_token()
+        print_token()
+    else:
+        print(f"Error: Expected '==', '^=', '>', '<', '=>' or '=< at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected '==', '^=', '>', '<', '=>' or '=< at line {current_token['line']}.")
+
+
+# Rule 32
+# R32) <Expression> ::= <Term> <Expression Prime>
+def Expression():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Expression> ::= <Term> <Expression Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Expression> ::= <Term> <Expression Prime>")
+    Term()
+    ExpressionPrime()
+
+
+# Rule 33
+
 # *********************************************************************************************************************************
 # ******************************SYNTAX ANALYZER CODE ENDS HERE********************************************************************* 
 # *********************************************************************************************************************************
