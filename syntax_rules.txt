@@ -272,7 +272,7 @@ R19) <Return> ::= ret ; | ret <Expression> ;
 Remove Backtracking With Left Factoring:
 	New nonterminal = <Return Prime>
 	<Return> ::= ret <Return Prime>
-	<Return Prime> ::= ; | ret <Expression> ;
+	<Return Prime> ::= ; | <Expression> ;
 
 R30) <Primary> ::= <Identifier> | <Integer> | <Identifier> ( <IDs> ) | ( <Expression> ) | <Real> | true | false
 
@@ -321,7 +321,7 @@ R22) <Assign> ::= <Identifier> = <Expression> ;
 >	R24) <If Prime> ::= endif | else <Statement> endif
 
 >	R25) <Return> ::= ret <Return Prime>
->	R26) <Return Prime> ::= ; | ret <Expression> ;
+>	R26) <Return Prime> ::= ; | <Expression> ;
 
 R27) <Print> ::= put ( <Expression> );
 R28) <Scan> ::= get ( <IDs> );

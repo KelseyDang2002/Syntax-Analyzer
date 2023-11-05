@@ -232,7 +232,6 @@ def ReturnPrime():
     if:
         ';'
     elif:
-        'ret'
         Expression()
         ';'
     else:
