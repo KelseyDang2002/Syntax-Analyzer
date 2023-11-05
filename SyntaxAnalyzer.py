@@ -20,6 +20,84 @@ tokens = []
 # define current line
 current_line = 1
 
+# variables for parser
+current_token = None
+token_index = 0
+
+# variables for output file
+output_file = None
+
+switch = False
+
+# *********************************************************************************************************************************
+# ******************************SYNTAX ANALYZER CODE STARTS HERE*******************************************************************
+# *********************************************************************************************************************************
+"""All the rules and functions for the syntax analyzer are here for top down parsing"""
+def change_switch():
+    global switch
+    if switch == False:
+        switch = True
+    else:
+        switch = False
+
+def get_next_token():
+    global current_token, token_index
+    if token_index < len(tokens):
+        current_token = tokens[token_index]
+        token_index += 1
+
+def print_token():
+    global current_token,  output_file
+    if current_token['token'] == 'illegal' or current_token['token'] == 'keyword' or current_token['token'] == 'integer' or current_token['token'] == 'real':
+        print(f"{current_token['token']}\t\t\t{current_token['lexeme']}")
+        with open(output_file, "a") as file:
+            file.write(f"{current_token['token']}\t\t\t{current_token['lexeme']}")
+    else:
+        print(f"{current_token['token']}\t\t{current_token['lexeme']}")
+        with open(output_file, "a") as file:
+            file.write(f"{current_token['token']}\t\t{current_token['lexeme']}")
+
+# Rule 1
+# R1) <Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
+def Rat23F():
+    global current_token, switch, output_file
+    get_next_token()
+    print_token()
+    # print rule
+    if switch == False:
+        print("\t<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #")
+        with open(output_file, "a") as file:
+            file.write("\t<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #")
+    # call first function
+    OptFunctionDefinitions()
+    if current_token['lexeme'] == '#':
+        get_next_token()
+        print_token()
+        # call second function
+        OptDeclarationList()
+        # call third function
+        StatementList()
+        if current_token['lexeme'] == '#':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected '#' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected '#' at line {current_token['line']}.")
+    else: 
+        print(f"Error: Expected '#' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected '#' at line {current_token['line']}.")
+
+
+
+
+# *********************************************************************************************************************************
+# ******************************SYNTAX ANALYZER CODE ENDS HERE********************************************************************* 
+# *********************************************************************************************************************************
+
+
+
 # Code to read the file and store its words in an array
 def read_file(file_name):
     try:
@@ -238,9 +316,9 @@ def file_name_generator(file_name):
     return 'output_' + file_name
 
 # this function writes all the tokens and lexemes to a file
-def write_tokens(tokens, file_name):
+def write_tokens(tokens):
+    global output_file
     try:
-        output_file = file_name_generator(file_name)
         with open(output_file, 'w') as file:
             print(f"\nWriting tokens to file '{output_file}'...\n")
             file.write("token\t\t\tlexeme\t\t\tline\n")
@@ -262,7 +340,7 @@ def write_tokens(tokens, file_name):
 
 # Function to analyze a file
 def analyze_file():
-    global current_line
+    global current_line, output_file
     while True:
         try:
             file_name = input("Please enter the name of the file you want to analyze (or 'q' to quit): ")
@@ -273,6 +351,11 @@ def analyze_file():
                 sys.exit(0) # Exit the loop and quit the program
             with open(file_name, 'r') as file:
                 # The file exists, so continue with analysis
+                # create output file name
+                output_file = file_name_generator(file_name)
+                # clear file in case that there was a previous analysis
+                with open(output_file, "w") as file:
+                    file.write("")  # This will clear the file's contents
                 print(f"\nAnalyzing file '{file_name}'...\n")
                 words.clear()  # Clear the list of words from previous analyses
                 tokens.clear()  # Clear the list of tokens from previous analyses
@@ -280,7 +363,7 @@ def analyze_file():
                 read_file(file_name)
                 commentRemoval(words)
                 print_tokens(tokens)
-                write_tokens(tokens, file_name)
+                write_tokens(tokens)
                 break
         except FileNotFoundError:
             print(f"The file '{file_name}' was not found. Please enter a valid file name.")
