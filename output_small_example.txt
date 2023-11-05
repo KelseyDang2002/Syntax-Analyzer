@@ -1,42 +1,2373 @@
-token			lexeme			line
-_________________________________
-keyword			function			2
-identifier		factorial			2
-separator		(			2
-identifier		n			2
-keyword			integer			2
-separator		)			2
-separator		{			2
-keyword			integer			3
-identifier		result			3
-separator		;			3
-keyword			if			4
-separator		(			4
-identifier		n			4
-operator		<=			4
-integer			1			4
-separator		)			4
-separator		{			4
-keyword			ret			5
-integer			1			5
-separator		;			5
-separator		}			6
-keyword			else			6
-separator		{			6
-identifier		result			7
-operator		=			7
-identifier		n			7
-operator		*			7
-identifier		factorial			7
-separator		(			7
-identifier		n			7
-operator		-			7
-integer			1			7
-separator		)			7
-separator		;			7
-keyword			ret			8
-identifier		result			8
-separator		;			8
-separator		}			9
-keyword			endif			9
-separator		}			10
+keyword			function
+	<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
+	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
+	<Function Definitions> ::= <Function> <Function Definitions Prime>
+	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
+identifier		factorial
+separator		(
+identifier		n
+	<Opt Parameter List> ::= <Parameter List> | <Empty>
+	<Parameter List> ::= <Parameter> <Parameter List Prime>
+	<Parameter> ::= <IDs> <Qualifier>
+	<IDs> ::= <Identifier> <IDs Prime>
+keyword			integer
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+	<Qualifier> ::= integer | boolean | real
+separator		)
+	<Parameter List Prime> ::= epsilon | <Parameter List>
+	<Empty> ::= epsilon
+	<Empty> ::= epsilon
+separator		{
+	<Opt Declaration List> ::= <Declaration List> | <Empty>
+	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
+	<Declaration> ::= <Qualifier> <IDs>
+	<Qualifier> ::= integer | boolean | real
+Error: Expected 'integer', 'bool' or 'real' at line 2.
+	<IDs> ::= <Identifier> <IDs Prime>
+Error: Expected 'identifier' at line 2.
+Error: Expected ';' at line 2.
+	<Empty> ::= epsilon
+	<Body> ::= { <Statement List> }
+keyword			integer
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
+	<Scan> ::= get ( <IDs> );
+Error: Expected 'get' keyword at line 3.
+	<While> ::= while ( <Condition> ) <Statement>
+Error: Expected 'while' keyword at line 3.
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Compound> ::= { <Statement List> }
+Error: Expected '{' at line 3.
+	<Assign> ::= <Identifier> = <Expression> ;
+Error: Expected 'identifier' at line 3.
+	<If> ::= if ( <Condition> ) <Statement> <If Prime>
+Error: Expected 'if' keyword at line 3.
+	<Return> ::= return <Return Prime>
+Error: Expected 'ret' keyword at line 3.
+	<Print> ::= put ( <Expression> );
+Error: Expected 'put' keyword at line 3.
