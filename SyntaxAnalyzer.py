@@ -678,17 +678,17 @@ def Condition():
 
 
 # Rule 31
-# R31) <Relop> ::= == | ^= | > | < | => | =<
+# R31) <Relop> ::= == | != | > | < | => | =<
 def Relop():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Relop> ::= == | ^= | > | < | => | =<")
+        print("\t<Relop> ::= == | != | > | < | => | =<")
         with open(output_file, "a") as file:
-            file.write("\t<Relop> ::= == | ^= | > | < | => | =<")
+            file.write("\t<Relop> ::= == | != | > | < | => | =<")
     if current_token['lexeme'] == '==':
         get_next_token()
         print_token()
-    elif current_token['lexeme'] == '^=':
+    elif current_token['lexeme'] == '!=':
         get_next_token()
         print_token()
     elif current_token['lexeme'] == '>':
@@ -704,9 +704,9 @@ def Relop():
         get_next_token()
         print_token()
     else:
-        print(f"Error: Expected '==', '^=', '>', '<', '=>' or '=< at line {current_token['line']}.")
+        print(f"Error: Expected '==', '!=', '>', '<', '=>' or '=< at line {current_token['line']}.")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected '==', '^=', '>', '<', '=>' or '=< at line {current_token['line']}.")
+            file.write(f"Error: Expected '==', '!=', '>', '<', '=>' or '=< at line {current_token['line']}.")
 
 
 # Rule 32
