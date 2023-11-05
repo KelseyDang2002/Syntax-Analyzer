@@ -86,19 +86,19 @@ def Rat23F():
             print_token()
         else:
             
-            print(f"Error: Expected '#' at line {current_token['line']}.")
+            print(f"Error R1: Expected '#' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '#' at line {current_token['line']}.\n")
+                file.write(f"Error R1: Expected '#' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else: 
         
-        print(f"Error: Expected '#' at line {current_token['line']}.")
+        print(f"Error R1: Expected '#' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected '#' at line {current_token['line']}.\n")
+            file.write(f"Error R1: Expected '#' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -111,8 +111,21 @@ def OptFunctionDefinitions():
         print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
         with open(output_file, "a") as file:
             file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
-    FunctionDefinitions()
-    Empty()
+    if current_token['lexeme'] == 'function':
+        FunctionDefinitions()
+    if current_token['lexeme'] == '#':
+        print("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>")
+        with open(output_file, "a") as file:
+            file.write("\t<Opt Function Definitions> ::= <Function Definitions> | <Empty>\n")
+        Empty()
+    else:
+        print(f"Error R2: Expected 'function' or '#' at line {current_token['line']}.")
+        print(f"Reading token:", end="")
+        with open(output_file, "a") as file:
+            file.write(f"Error R2: Expected 'function' or '#' at line {current_token['line']}.\n")
+            file.write(f"Reading token:")
+        print_token()
+        exit_syntax_analyzer()
 
 
 # Rule 3
@@ -135,8 +148,10 @@ def FunctionDefinitionsPrime():
         print("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>")
         with open(output_file, "a") as file:
             file.write("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>\n")
-    Empty()
-    FunctionDefinitions()
+    if current_token['lexeme'] == 'function':
+        FunctionDefinitions()
+    else:
+        Empty()
 
 #Rule 5
 # R5) <Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
@@ -155,45 +170,51 @@ def Function():
             if current_token['lexeme'] == '(':
                 get_next_token()
                 print_token()
-                OptParameterList()
+                if current_token['lexeme'] != ')':
+                    OptParameterList()
+                else:
+                    Empty()
                 if current_token['lexeme'] == ')':
                     get_next_token()
                     print_token()
-                    OptDeclarationList()
+                    if current_token['lexeme'] != '{':
+                        OptDeclarationList()
+                    else:
+                        Empty()
                     Body()
                 else:
                     
-                    print(f"Error: Expected ')' at line {current_token['line']}.")
+                    print(f"Error R5: Expected ')' at line {current_token['line']}.")
                     print(f"Reading token:", end="")
                     with open(output_file, "a") as file:
-                        file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                        file.write(f"Error R5: Expected ')' at line {current_token['line']}.\n")
                         file.write(f"Reading token:")
                         print_token()
                     exit_syntax_analyzer()
             else:
                 
-                print(f"Error: Expected '(' at line {current_token['line']}.")
+                print(f"Error R5: Expected '(' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected '(' at line {current_token['line']}.\n")
+                    file.write(f"Error R5: Expected '(' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer()
         else:
             
-            print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+            print(f"Error R5: Expected 'identifier' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected 'identifier' at line {current_token['line']}.\n")
+                file.write(f"Error R5: Expected 'identifier' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'function' keyword at line {current_token['line']}.")
+        print(f"Error R5: Expected 'function' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'function' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R5: Expected 'function' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -208,7 +229,6 @@ def OptParameterList():
         with open(output_file, "a") as file:
             file.write("\t<Opt Parameter List> ::= <Parameter List> | <Empty>\n")
     ParameterList()
-    Empty()
 
 
 # Rule 7
@@ -247,6 +267,7 @@ def Parameter():
         print("\t<Parameter> ::= <IDs> <Qualifier>")
         with open(output_file, "a") as file:
             file.write("\t<Parameter> ::= <IDs> <Qualifier>\n")
+    
     IDs()
     Qualifier()
 
@@ -255,13 +276,15 @@ def Parameter():
 # R10) <Qualifier> ::= integer | bool | real
 def Qualifier():
     global current_token, switch, output_file
+    # get_next_token()
+    # print_token()
     if switch == False:
         print("\t<Qualifier> ::= integer | bool | real")
         with open(output_file, "a") as file:
             file.write("\t<Qualifier> ::= integer | boolean | real\n")
     if current_token['lexeme'] == 'integer':
-        print_token()
         get_next_token()
+        print_token()
     elif current_token['lexeme'] == 'bool':
         get_next_token()
         print_token()
@@ -270,10 +293,10 @@ def Qualifier():
         print_token()
     else:
         
-        print(f"Error: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.")
+        print(f"Error R10: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.\n")
+            file.write(f"Error R10: Expected 'integer', 'bool' or 'real' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -296,19 +319,19 @@ def Body():
             print_token()
         else:
             
-            print(f"Error: Expected '}}' at line {current_token['line']}.")
+            print(f"Error R11: Expected '}}' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '}}' at line {current_token['line']}.\n")
+                file.write(f"Error R11: Expected '}}' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected '{{' at line {current_token['line']}.")
+        print(f"Error R11: Expected '{{' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected '{{' at line {current_token['line']}.\n")
+            file.write(f"Error R11: Expected '{{' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -341,10 +364,10 @@ def DeclarationList():
         DeclarationListPrime()
     else:
         
-        print(f"Error: Expected ';' at line {current_token['line']}.")
+        print(f"Error R12: Expected ';' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected ';' at line {current_token['line']}.\n")
+            file.write(f"Error R12: Expected ';' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -358,8 +381,10 @@ def DeclarationListPrime():
         print("\t<Declaration List Prime> ::= <Declaration List> | epsilon")
         with open(output_file, "a") as file:
             file.write("\t<Declaration List Prime> ::= <Declaration List> | epsilon\n")
-    DeclarationList()
-    Empty()
+    if current_token['lexeme'] == 'integer' or current_token['lexeme'] == 'bool' or current_token['lexeme'] == 'real':
+        DeclarationList()
+    else:
+        Empty()
 
 
 # Rule 15
@@ -370,6 +395,9 @@ def Declaration():
         print("\t<Declaration> ::= <Qualifier> <IDs>")
         with open(output_file, "a") as file:
             file.write("\t<Declaration> ::= <Qualifier> <IDs>\n")
+    if current_token['lexeme'] == '{':
+        get_next_token()
+        print_token()
     Qualifier()
     IDs()
 
@@ -388,10 +416,10 @@ def IDs():
         IDsPrime()
     else:
         
-        print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+        print(f"Error R16: Expected 'identifier' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'identifier' at line {current_token['line']}.\n")
+            file.write(f"Error R16: Expected 'identifier' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -433,8 +461,10 @@ def StatementListPrime():
         print("\t<Statement List Prime> ::= <Statement List> | epsilon")
         with open(output_file, "a") as file:
             file.write("\t<Statement List Prime> ::= <Statement List> | epsilon\n")
-    StatementList()
-    Empty()
+    if current_token['lexeme'] != '}':
+        StatementList()
+    elif current_token['lexeme'] == '}':
+        Empty()
 
 
 # Rule 20
@@ -445,13 +475,29 @@ def Statement():
         print("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>")
         with open(output_file, "a") as file:
             file.write("\t<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>\n")
-    Compound()
-    Assign()
-    If()
-    Return()
-    Print()
-    Scan()
-    While()
+    if current_token['lexeme'] == 'if':
+        If()
+    elif current_token['lexeme'] == 'while':
+        While()
+    elif current_token['lexeme'] == 'put':
+        Print_put()
+    elif current_token['lexeme'] == 'get':
+        Scan()
+    elif current_token['lexeme'] == 'ret':
+        Return()
+    elif current_token['token'] == 'identifier':
+        Assign()
+    elif current_token['lexeme'] == '{':
+        Compound()
+    else:
+        
+        print(f"Error R20: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{{' at line {current_token['line']}.")
+        print(f"Reading token:", end="")
+        with open(output_file, "a") as file:
+            file.write(f"Error R20: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{{' at line {current_token['line']}.\n")
+            file.write(f"Reading token:")
+        print_token()
+        exit_syntax_analyzer()
 
 
 # Rule 21
@@ -471,19 +517,19 @@ def Compound():
             print_token()
         else:
             
-            print(f"Error: Expected '}}' at line {current_token['line']}.")
+            print(f"Error R21: Expected '}}' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '}}' at line {current_token['line']}.\n")
+                file.write(f"Error R21: Expected '}}' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected '{{' at line {current_token['line']}.")
+        print(f"Error R21: Expected '{{' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected '{{' at line {current_token['line']}.\n")
+            file.write(f"Error R21: Expected '{{' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -509,28 +555,28 @@ def Assign():
                 print_token()
             else:
                 
-                print(f"Error: Expected ';' at line {current_token['line']}.")
+                print(f"Error R22: Expected ';' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected ';' at line {current_token['line']}.\n")
+                    file.write(f"Error R22: Expected ';' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer()
         else:
             
-            print(f"Error: Expected '=' at line {current_token['line']}.")
+            print(f"Error R22: Expected '=' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '=' at line {current_token['line']}.\n")
+                file.write(f"Error R22: Expected '=' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'identifier' at line {current_token['line']}.")
+        print(f"Error R22: Expected 'identifier' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'identifier' at line {current_token['line']}.\n")
+            file.write(f"Error R22: Expected 'identifier' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -555,31 +601,32 @@ def If():
                 get_next_token()
                 print_token()
                 Statement()
+
                 IfPrime()
             else:
                 
-                print(f"Error: Expected ')' at line {current_token['line']}.")
+                print(f"Error R23: Expected ')' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                    file.write(f"Error R23: Expected ')' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer()
         else:
             
-            print(f"Error: Expected '(' at line {current_token['line']}.")
+            print(f"Error R23: Expected '(' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '(' at line {current_token['line']}.\n")
+                file.write(f"Error R23: Expected '(' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'if' keyword at line {current_token['line']}.")
+        print(f"Error R23: Expected 'if' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'if' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R23: Expected 'if' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -604,19 +651,19 @@ def IfPrime():
             print_token()
         else:
             
-            print(f"Error: Expected 'endif' keyword at line {current_token['line']}.")
+            print(f"Error R24: Expected 'endif' keyword at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected 'endif' keyword at line {current_token['line']}.\n")
+                file.write(f"Error R24: Expected 'endif' keyword at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'endif' or 'else' keyword at line {current_token['line']}.")
+        print(f"Error R24: Expected 'endif' or 'else' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'endif' or 'else' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R24: Expected 'endif' or 'else' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -635,10 +682,10 @@ def Return():
         ReturnPrime()
     else:
         
-        print(f"Error: Expected 'ret' keyword at line {current_token['line']}.")
+        print(f"Error R25: Expected 'ret' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'ret' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R25: Expected 'ret' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -661,17 +708,17 @@ def ReturnPrime():
             print_token()
         else:
             
-            print(f"Error: Expected ';' at line {current_token['line']}.")
+            print(f"Error R26: Expected ';' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected ';' at line {current_token['line']}.\n")
+                file.write(f"Error R26: Expected ';' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
 
 # Rule 27
 # R27) <Print> ::= put ( <Expression> );
-def Print():
+def Print_put():
     global current_token, switch, output_file
     if switch == False:
         print("\t<Print> ::= put ( <Expression> );")
@@ -692,37 +739,37 @@ def Print():
                     print_token()
                 else:
                     
-                    print(f"Error: Expected ';' at line {current_token['line']}.")
+                    print(f"Error R27: Expected ';' at line {current_token['line']}.")
                     print(f"Reading token:", end="")
                     with open(output_file, "a") as file:
-                        file.write(f"Error: Expected ';' at line {current_token['line']}.\n")
+                        file.write(f"Error R27: Expected ';' at line {current_token['line']}.\n")
                         file.write(f"Reading token:")
                         print_token()
                     exit_syntax_analyzer()
             else:
                 
-                print(f"Error: Expected ')' at line {current_token['line']}.")
+                print(f"Error R27: Expected ')' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                    file.write(f"Error R27: Expected ')' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer()
         else:
             
-            print(f"Error: Expected '(' at line {current_token['line']}.")
+            print(f"Error R27: Expected '(' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '(' at line {current_token['line']}.\n")
+                file.write(f"Error R27: Expected '(' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'put' keyword at line {current_token['line']}.")
+        print(f"Error R27: Expected 'put' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'put' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R27: Expected 'put' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -750,37 +797,37 @@ def Scan():
                     print_token()
                 else:
                     
-                    print(f"Error: Expected ';' at line {current_token['line']}.")
+                    print(f"Error R28: Expected ';' at line {current_token['line']}.")
                     print(f"Reading token:", end="")
                     with open(output_file, "a") as file:
-                        file.write(f"Error: Expected ';' at line {current_token['line']}.\n")
+                        file.write(f"Error R28: Expected ';' at line {current_token['line']}.\n")
                         file.write(f"Reading token:")
                         print_token()
                     exit_syntax_analyzer()
             else:
                 
-                print(f"Error: Expected ')' at line {current_token['line']}.")
+                print(f"Error R28: Expected ')' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                    file.write(f"Error R28: Expected ')' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer()
         else:
             
-            print(f"Error: Expected '(' at line {current_token['line']}.")
+            print(f"Error R28: Expected '(' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '(' at line {current_token['line']}.\n")
+                file.write(f"Error R28: Expected '(' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'get' keyword at line {current_token['line']}.")
+        print(f"Error R28: Expected 'get' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'get' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R28: Expected 'get' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -806,28 +853,28 @@ def While():
                 Statement()
             else:
                 
-                print(f"Error: Expected ')' at line {current_token['line']}.")
+                print(f"Error R29: Expected ')' at line {current_token['line']}.")
                 print(f"Reading token:", end="")
                 with open(output_file, "a") as file:
-                    file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                    file.write(f"Error R29: Expected ')' at line {current_token['line']}.\n")
                     file.write(f"Reading token:")
                     print_token()
                 exit_syntax_analyzer
         else:
             
-            print(f"Error: Expected '(' at line {current_token['line']}.")
+            print(f"Error R29: Expected '(' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected '(' at line {current_token['line']}.\n")
+                file.write(f"Error R29: Expected '(' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
     else:
         
-        print(f"Error: Expected 'while' keyword at line {current_token['line']}.")
+        print(f"Error R29: Expected 'while' keyword at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'while' keyword at line {current_token['line']}.\n")
+            file.write(f"Error R29: Expected 'while' keyword at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -874,10 +921,10 @@ def Relop():
         print_token()
     else:
         
-        print(f"Error: Expected '==', '!=', '>', '<', '<=' or '=>' at line {current_token['line']}.")
+        print(f"Error R31: Expected '==', '!=', '>', '<', '<=' or '=>' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected '==', '!=', '>', '<', '<=' or '=>' at line {current_token['line']}.\n")
+            file.write(f"Error R31: Expected '==', '!=', '>', '<', '<=' or '=>' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -991,10 +1038,10 @@ def Primary():
             print_token()
         else:
             
-            print(f"Error: Expected ')' at line {current_token['line']}.")
+            print(f"Error R37: Expected ')' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                file.write(f"Error R37: Expected ')' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()
@@ -1009,10 +1056,10 @@ def Primary():
         print_token()
     else:
         
-        print(f"Error: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.")
+        print(f"Error R37: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.")
         print(f"Reading token:", end="")
         with open(output_file, "a") as file:
-            file.write(f"Error: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.\n")
+            file.write(f"Error R37: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.\n")
             file.write(f"Reading token:")
         print_token()
         exit_syntax_analyzer()
@@ -1034,10 +1081,10 @@ def PrimaryPrime():
             print_token()
         else:
             
-            print(f"Error: Expected ')' at line {current_token['line']}.")
+            print(f"Error R38: Expected ')' at line {current_token['line']}.")
             print(f"Reading token:", end="")
             with open(output_file, "a") as file:
-                file.write(f"Error: Expected ')' at line {current_token['line']}.\n")
+                file.write(f"Error R38: Expected ')' at line {current_token['line']}.\n")
                 file.write(f"Reading token:")
                 print_token()
             exit_syntax_analyzer()

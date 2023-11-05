@@ -14,14 +14,14 @@ keyword			integer
 	<IDs Prime> ::= , <IDs> | epsilon
 	<Empty> ::= epsilon
 	<Qualifier> ::= integer | boolean | real
-keyword			integer
+separator		)
 	<Parameter List Prime> ::= epsilon | <Parameter List>
 	<Empty> ::= epsilon
-	<Empty> ::= epsilon
 separator		{
-	<Opt Declaration List> ::= <Declaration List> | <Empty>
-	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
-	<Declaration> ::= <Qualifier> <IDs>
-	<Qualifier> ::= integer | boolean | real
-Error: Expected 'integer', 'bool' or 'real' at line 2.
-Reading token:separator		{
+	<Empty> ::= epsilon
+	<Body> ::= { <Statement List> }
+keyword			integer
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+Error R20: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 3.
+Reading token:keyword			integer
