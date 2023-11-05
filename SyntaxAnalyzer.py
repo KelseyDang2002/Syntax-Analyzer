@@ -722,6 +722,154 @@ def Expression():
 
 
 # Rule 33
+# R33) <Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+def ExpressionPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon")
+    if current_token['lexeme'] == '+':
+        get_next_token()
+        print_token()
+        Term()
+        ExpressionPrime()
+    elif current_token['lexeme'] == '-':
+        get_next_token()
+        print_token()
+        Term()
+        ExpressionPrime()
+    else:
+        Empty()
+
+
+# Rule 34
+# R34) <Term> ::= <Factor> <Term Prime>
+def Term():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Term> ::= <Factor> <Term Prime>")
+        with open(output_file, "a") as file:
+            file.write("\t<Term> ::= <Factor> <Term Prime>")
+    Factor()
+    TermPrime()
+
+
+# Rule 35
+# R35) <Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+def TermPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon")
+    if current_token['lexeme'] == '*':
+        get_next_token()
+        print_token()
+        Factor()
+        TermPrime()
+    elif current_token['lexeme'] == '/':
+        get_next_token()
+        print_token()
+        Factor()
+        TermPrime()
+    else:
+        Empty()
+
+
+# Rule 36
+# R36) <Factor> ::= - <Primary> | <Primary>
+def Factor():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Factor> ::= - <Primary> | <Primary>")
+        with open(output_file, "a") as file:
+            file.write("\t<Factor> ::= - <Primary> | <Primary>")
+    if current_token['lexeme'] == '-':
+        get_next_token()
+        print_token()
+        Primary()
+    else:
+        Primary()
+
+
+# Rule 37
+# R37) <Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+def Primary():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false")
+        with open(output_file, "a") as file:
+            file.write("\t<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false")
+    if current_token['token'] == 'identifier':
+        get_next_token()
+        print_token()
+        PrimaryPrime()
+    elif current_token['token'] == 'integer':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == '(':
+        get_next_token()
+        print_token()
+        Expression()
+        if current_token['lexeme'] == ')':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected ')' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected ')' at line {current_token['line']}.")
+    elif current_token['token'] == 'real':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == 'true':
+        get_next_token()
+        print_token()
+    elif current_token['lexeme'] == 'false':
+        get_next_token()
+        print_token()
+    else:
+        print(f"Error: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.")
+        with open(output_file, "a") as file:
+            file.write(f"Error: Expected 'identifier', 'integer', '(', 'real', 'true' or 'false' at line {current_token['line']}.")
+
+
+# Rule 38
+# R38) <Primary Prime> ::= epsilon | ( <IDs> )
+def PrimaryPrime():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Primary Prime> ::= epsilon | ( <IDs> )")
+        with open(output_file, "a") as file:
+            file.write("\t<Primary Prime> ::= epsilon | ( <IDs> )")
+    if current_token['lexeme'] == '(':
+        get_next_token()
+        print_token()
+        IDs()
+        if current_token['lexeme'] == ')':
+            get_next_token()
+            print_token()
+        else:
+            print(f"Error: Expected ')' at line {current_token['line']}.")
+            with open(output_file, "a") as file:
+                file.write(f"Error: Expected ')' at line {current_token['line']}.")
+    else:
+        Empty()
+
+
+# Rule 39
+# R39) <Empty> ::= epsilon
+def Empty():
+    global current_token, switch, output_file
+    if switch == False:
+        print("\t<Empty> ::= epsilon")
+        with open(output_file, "a") as file:
+            file.write("\t<Empty> ::= epsilon")
+    pass    
+    
+
+
+
 
 # *********************************************************************************************************************************
 # ******************************SYNTAX ANALYZER CODE ENDS HERE********************************************************************* 
