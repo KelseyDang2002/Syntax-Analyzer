@@ -11,14 +11,14 @@ Token: identifier		Lexeme: inputNum
 	<Parameter> ::= <IDs> <Qualifier>
 	<IDs> ::= <Identifier> <IDs Prime>
 Token: keyword			Lexeme: integer
-	<IDs Prime> ::= , <IDs> | epsilon
-	<Empty> ::= epsilon
+	<IDs Prime> ::= , <IDs> | <Empty>
+	<Empty> ::= <Empty>
 	<Qualifier> ::= integer | boolean | real
 Token: separator		Lexeme: )
-	<Parameter List Prime> ::= epsilon | <Parameter List>
-	<Empty> ::= epsilon
+	<Parameter List Prime> ::= <Empty> | <Parameter List>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: {
-	<Empty> ::= epsilon
+	<Empty> ::= <Empty>
 	<Body> ::= { <Statement List> }
 Token: identifier		Lexeme: inRemainder
 	<Statement List> ::= <Statement> <Statement List Prime>
@@ -31,12 +31,12 @@ Token: integer			Lexeme: 0
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: identifier		Lexeme: testNum
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Assign> ::= <Identifier> = <Expression> ;
@@ -47,12 +47,12 @@ Token: real			Lexeme: 0.0
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: identifier		Lexeme: tempNum
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Assign> ::= <Identifier> = <Expression> ;
@@ -63,12 +63,12 @@ Token: real			Lexeme: 0.0
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: if
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<If> ::= if ( <Condition> ) <Statement> <If Prime>
@@ -80,12 +80,12 @@ Token: identifier		Lexeme: inputNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: <
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 	<Relop> ::= == | != | > | < | <= | =>
 Token: integer			Lexeme: 0
 	<Expression> ::= <Term> <Expression Prime>
@@ -93,10 +93,10 @@ Token: integer			Lexeme: 0
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: )
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: {
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Compound> ::= { <Statement List> }
@@ -111,17 +111,17 @@ Token: keyword			Lexeme: false
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: }
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Empty> ::= epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: endif
 	<If Prime> ::= endif | else <Statement> endif
 Token: keyword			Lexeme: while
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<While> ::= while ( <Condition> ) <Statement>
@@ -133,12 +133,12 @@ Token: identifier		Lexeme: tempNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: !=
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 	<Relop> ::= == | != | > | < | <= | =>
 Token: integer			Lexeme: 0
 	<Expression> ::= <Term> <Expression Prime>
@@ -146,10 +146,10 @@ Token: integer			Lexeme: 0
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: )
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: {
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Compound> ::= { <Statement List> }
@@ -164,19 +164,19 @@ Token: identifier		Lexeme: tempNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: /
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
 Token: integer			Lexeme: 10
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: identifier		Lexeme: testNum
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Assign> ::= <Identifier> = <Expression> ;
@@ -187,29 +187,29 @@ Token: identifier		Lexeme: testNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: *
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
 Token: integer			Lexeme: 10
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: +
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
 Token: identifier		Lexeme: inRemainder
 	<Term> ::= <Factor> <Term Prime>
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: identifier		Lexeme: tempNum
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Assign> ::= <Identifier> = <Expression> ;
@@ -220,22 +220,22 @@ Token: identifier		Lexeme: testNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: /
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
 Token: integer			Lexeme: 10
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: }
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Empty> ::= epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: if
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<If> ::= if ( <Condition> ) <Statement> <If Prime>
@@ -247,12 +247,12 @@ Token: identifier		Lexeme: testNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: operator			Lexeme: ==
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 	<Relop> ::= == | != | > | < | <= | =>
 Token: identifier		Lexeme: inputNum
 	<Expression> ::= <Term> <Expression Prime>
@@ -260,12 +260,12 @@ Token: identifier		Lexeme: inputNum
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: )
-	<Primary Prime> ::= epsilon | ( <IDs> )
-	<Empty> ::= epsilon
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Primary Prime> ::= <Empty> | ( <IDs> )
+	<Empty> ::= <Empty>
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: {
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Compound> ::= { <Statement List> }
@@ -280,13 +280,13 @@ Token: keyword			Lexeme: true
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: }
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Empty> ::= epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: else
 	<If Prime> ::= endif | else <Statement> endif
 Token: separator		Lexeme: {
@@ -303,22 +303,22 @@ Token: keyword			Lexeme: false
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: ;
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: }
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Empty> ::= epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: endif
 Token: separator		Lexeme: }
-	<Statement List Prime> ::= <Statement List> | epsilon
-	<Empty> ::= epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: #
-	<Function Definitions Prime> ::= epsilon | <Function Definitions>
-	<Empty> ::= epsilon
+	<Function Definitions Prime> ::= <Empty> | <Function Definitions>
+	<Empty> ::= <Empty>
 	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
-	<Empty> ::= epsilon
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: integer
 	<Opt Declaration List> ::= <Declaration List> | <Empty>
 	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
@@ -327,12 +327,12 @@ Token: keyword			Lexeme: integer
 Token: identifier		Lexeme: inputNum
 	<IDs> ::= <Identifier> <IDs Prime>
 Token: separator		Lexeme: ;
-	<IDs Prime> ::= , <IDs> | epsilon
-	<Empty> ::= epsilon
+	<IDs Prime> ::= , <IDs> | <Empty>
+	<Empty> ::= <Empty>
 Token: keyword			Lexeme: get
-	<Declaration List Prime> ::= <Declaration List> | epsilon
-	<Empty> ::= epsilon
-	<Empty> ::= epsilon
+	<Declaration List Prime> ::= <Declaration List> | <Empty>
+	<Empty> ::= <Empty>
+	<Empty> ::= <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Scan> ::= get ( <IDs> );
@@ -340,11 +340,11 @@ Token: separator		Lexeme: (
 Token: identifier		Lexeme: inputNum
 	<IDs> ::= <Identifier> <IDs Prime>
 Token: separator		Lexeme: )
-	<IDs Prime> ::= , <IDs> | epsilon
-	<Empty> ::= epsilon
+	<IDs Prime> ::= , <IDs> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: ;
 Token: keyword			Lexeme: put
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Print> ::= put ( <Expression> );
@@ -355,20 +355,20 @@ Token: identifier		Lexeme: isPalindrom
 	<Factor> ::= - <Primary> | <Primary>
 	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
 Token: separator		Lexeme: (
-	<Primary Prime> ::= epsilon | ( <IDs> )
+	<Primary Prime> ::= <Empty> | ( <IDs> )
 Token: identifier		Lexeme: inputNum
 	<IDs> ::= <Identifier> <IDs Prime>
 Token: separator		Lexeme: )
-	<IDs Prime> ::= , <IDs> | epsilon
-	<Empty> ::= epsilon
+	<IDs Prime> ::= , <IDs> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: )
-	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
-	<Empty> ::= epsilon
-	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
-	<Empty> ::= epsilon
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
+	<Empty> ::= <Empty>
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
+	<Empty> ::= <Empty>
 Token: separator		Lexeme: ;
 Token: keyword			Lexeme: ret
-	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List Prime> ::= <Statement List> | <Empty>
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
 	<Return> ::= return <Return Prime>

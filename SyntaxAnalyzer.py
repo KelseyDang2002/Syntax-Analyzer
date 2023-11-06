@@ -148,13 +148,13 @@ def FunctionDefinitions():
 
 
 # Rule 4
-# R4) <Function Definitions Prime> ::= epsilon | <Function Definitions>
+# R4) <Function Definitions Prime> ::= <Empty> | <Function Definitions>
 def FunctionDefinitionsPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>")
+        print("\t<Function Definitions Prime> ::= <Empty> | <Function Definitions>")
         with open(output_file, "a") as file:
-            file.write("\t<Function Definitions Prime> ::= epsilon | <Function Definitions>\n")
+            file.write("\t<Function Definitions Prime> ::= <Empty> | <Function Definitions>\n")
     if current_token['lexeme'] == 'function':
         FunctionDefinitions()
     else:
@@ -251,13 +251,13 @@ def ParameterList():
 
 
 # Rule 8
-# R8) <Parameter List Prime> ::= epsilon | <Parameter List>
+# R8) <Parameter List Prime> ::= <Empty> | <Parameter List>
 def ParameterListPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Parameter List Prime> ::= epsilon | <Parameter List>")
+        print("\t<Parameter List Prime> ::= <Empty> | <Parameter List>")
         with open(output_file, "a") as file:
-            file.write("\t<Parameter List Prime> ::= epsilon | <Parameter List>\n")
+            file.write("\t<Parameter List Prime> ::= <Empty> | <Parameter List>\n")
     if current_token['lexeme'] == ',':
         get_next_token()
         print_token()
@@ -382,13 +382,13 @@ def DeclarationList():
 
 
 # Rule 14
-# R14) <Declaration List Prime> ::= <Declaration List> | epsilon
+# R14) <Declaration List Prime> ::= <Declaration List> | <Empty>
 def DeclarationListPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Declaration List Prime> ::= <Declaration List> | epsilon")
+        print("\t<Declaration List Prime> ::= <Declaration List> | <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<Declaration List Prime> ::= <Declaration List> | epsilon\n")
+            file.write("\t<Declaration List Prime> ::= <Declaration List> | <Empty>\n")
     if current_token['lexeme'] == 'integer' or current_token['lexeme'] == 'bool' or current_token['lexeme'] == 'real':
         DeclarationList()
     else:
@@ -434,13 +434,13 @@ def IDs():
 
 
 # Rule 17
-# R17) <IDs Prime> ::= , <IDs> | epsilon
+# R17) <IDs Prime> ::= , <IDs> | <Empty>
 def IDsPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<IDs Prime> ::= , <IDs> | epsilon")
+        print("\t<IDs Prime> ::= , <IDs> | <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<IDs Prime> ::= , <IDs> | epsilon\n")
+            file.write("\t<IDs Prime> ::= , <IDs> | <Empty>\n")
     if current_token['lexeme'] == ',':
         get_next_token()
         print_token()
@@ -464,13 +464,13 @@ def StatementList():
 
 
 # Rule 19
-# R19) <Statement List Prime> ::= <Statement List> | epsilon
+# R19) <Statement List Prime> ::= <Statement List> | <Empty>
 def StatementListPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Statement List Prime> ::= <Statement List> | epsilon")
+        print("\t<Statement List Prime> ::= <Statement List> | <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<Statement List Prime> ::= <Statement List> | epsilon\n")
+            file.write("\t<Statement List Prime> ::= <Statement List> | <Empty>\n")
     if current_token['lexeme'] != '}':
         StatementList()
     else:
@@ -953,13 +953,13 @@ def Expression():
 
 
 # Rule 33
-# R33) <Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+# R33) <Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>
 def ExpressionPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon")
+        print("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon\n")
+            file.write("\t<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | <Empty>\n")
     if current_token['lexeme'] == '+':
         get_next_token()
         print_token()
@@ -987,13 +987,13 @@ def Term():
 
 
 # Rule 35
-# R35) <Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+# R35) <Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>
 def TermPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon")
+        print("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon\n")
+            file.write("\t<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | <Empty>\n")
     if current_token['lexeme'] == '*':
         get_next_token()
         print_token()
@@ -1075,13 +1075,13 @@ def Primary():
         exit_syntax_analyzer()
 
 # Rule 38
-# R38) <Primary Prime> ::= epsilon | ( <IDs> )
+# R38) <Primary Prime> ::= <Empty> | ( <IDs> )
 def PrimaryPrime():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Primary Prime> ::= epsilon | ( <IDs> )")
+        print("\t<Primary Prime> ::= <Empty> | ( <IDs> )")
         with open(output_file, "a") as file:
-            file.write("\t<Primary Prime> ::= epsilon | ( <IDs> )\n")
+            file.write("\t<Primary Prime> ::= <Empty> | ( <IDs> )\n")
     if current_token['lexeme'] == '(':
         get_next_token()
         print_token()
@@ -1103,13 +1103,13 @@ def PrimaryPrime():
 
 
 # Rule 39
-# R39) <Empty> ::= epsilon
+# R39) <Empty> ::= <Empty>
 def Empty():
     global current_token, switch, output_file
     if switch == False:
-        print("\t<Empty> ::= epsilon")
+        print("\t<Empty> ::= <Empty>")
         with open(output_file, "a") as file:
-            file.write("\t<Empty> ::= epsilon\n")
+            file.write("\t<Empty> ::= <Empty>\n")
     pass    
     
 
