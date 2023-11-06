@@ -178,4 +178,6 @@ Token: separator		Lexeme: )
 	<Empty> ::= epsilon
 Token: separator		Lexeme: ;
 Token: separator		Lexeme: #
+
 Reached end of file without parsing errors.
+
