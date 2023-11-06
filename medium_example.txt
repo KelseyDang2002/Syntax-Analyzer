@@ -1,22 +1,21 @@
-function AddNums(numOne integer, numTwo integer)
-{
-	integer newSum;
-	newSum = numOne + numTwo;
-	ret newSum
+function AddNums(numOne integer, numTwo integer){
+	ret numOne + numTwo;
 }
 
-[* This is a comment, nothing here should show up *]
-
-function SubNums(numOne integer, numTwo integer)
-{
-	integer newDiff;
-	newDiff = numOne - numTwo;
-	ret newDiff;
+function SubNums(numOne integer, numTwo integer){
+	ret numOne - numTwo;
 }
 
-function ConvertToCelcius(tempInF real)
-{
-	real tempCel;
-	tempCel = tempInF * (5/9) + 32;
-	ret tempCel;
+function ConvertToCelcius(tempInF real){
+	ret tempInF * (5/9) + 32;
 }
+#
+	[* Main program *]
+	integer numOne, numTwo;
+	real tempInF;
+	get(numOne, numTwo, tempInF);
+	put(AddNums(numOne, numTwo));
+	put(SubNums(numOne, numTwo));
+	put(ConvertToCelcius(tempInF));
+	ret;
+#

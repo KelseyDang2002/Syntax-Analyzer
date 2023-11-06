@@ -9,5 +9,7 @@ function factorial(n integer) {
 }
 #
     [* Main program *]
-    factorial(5);
+    integer n;
+    get(n);
+    put(factorial(n));
 #
