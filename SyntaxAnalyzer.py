@@ -52,9 +52,9 @@ def get_next_token():
         current_token = tokens[token_index]
         token_index += 1
     else:
-        print("Reached end of file without parsing errors.")
+        print("\nReached end of file without parsing errors.\n")
         with open(output_file, "a") as file:
-            file.write("Reached end of file without parsing errors.\n")
+            file.write("\nReached end of file without parsing errors.\n\n")
         change_switch()
         # exit_syntax_analyzer()
     
@@ -1316,7 +1316,6 @@ def commentRemoval(words):
     for word in words:
         if word == "\n":
             current_line += 1
-            print(f"Current line: {current_line}")
         elif word == begin_comment:
             comment = True
         elif comment == False:
