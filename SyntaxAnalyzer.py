@@ -2,8 +2,6 @@
 import time
 import sys
 
-from syntax_rules import *
-
 # define separators, operators and reserved words
 separator = [' ', '\t', ',', ';', '(', ')', '{', '}', '#']
 operators = ['+', '-', '*', '/', '=', '<', '>', '<=', '=>', '==', '!=', '!']
