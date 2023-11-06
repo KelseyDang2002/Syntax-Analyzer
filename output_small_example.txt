@@ -129,10 +129,53 @@ Token: separator		Lexeme: #
 	<Empty> ::= epsilon
 	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
 	<Empty> ::= epsilon
-Token: identifier		Lexeme: factorial
+Token: keyword			Lexeme: integer
 	<Opt Declaration List> ::= <Declaration List> | <Empty>
 	<Declaration List> ::= <Declaration> ; <Declaration List Prime>
 	<Declaration> ::= <Qualifier> <IDs>
 	<Qualifier> ::= integer | boolean | real
-Error: Expected 'integer', 'bool' or 'real' at line 12.
-Reading token:Token: identifier		Lexeme: factorial
+Token: identifier		Lexeme: n
+	<IDs> ::= <Identifier> <IDs Prime>
+Token: separator		Lexeme: ;
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+Token: keyword			Lexeme: get
+	<Declaration List Prime> ::= <Declaration List> | epsilon
+	<Empty> ::= epsilon
+	<Empty> ::= epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Scan> ::= get ( <IDs> );
+Token: separator		Lexeme: (
+Token: identifier		Lexeme: n
+	<IDs> ::= <Identifier> <IDs Prime>
+Token: separator		Lexeme: )
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+Token: separator		Lexeme: ;
+Token: keyword			Lexeme: put
+	<Statement List Prime> ::= <Statement List> | epsilon
+	<Statement List> ::= <Statement> <Statement List Prime>
+	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
+	<Print> ::= put ( <Expression> );
+Token: separator		Lexeme: (
+Token: identifier		Lexeme: factorial
+	<Expression> ::= <Term> <Expression Prime>
+	<Term> ::= <Factor> <Term Prime>
+	<Factor> ::= - <Primary> | <Primary>
+	<Primary> ::= <Identifier> <Primary Prime> | <Integer> | ( <Expression> ) | <Real> | true | false
+Token: separator		Lexeme: (
+	<Primary Prime> ::= epsilon | ( <IDs> )
+Token: identifier		Lexeme: n
+	<IDs> ::= <Identifier> <IDs Prime>
+Token: separator		Lexeme: )
+	<IDs Prime> ::= , <IDs> | epsilon
+	<Empty> ::= epsilon
+Token: separator		Lexeme: )
+	<Term Prime> ::= * <Factor> <Term Prime> | / <Factor> <Term Prime> | epsilon
+	<Empty> ::= epsilon
+	<Expression Prime> ::= + <Term> <Expression Prime> | - <Term> <Expression Prime> | epsilon
+	<Empty> ::= epsilon
+Token: separator		Lexeme: ;
+Token: separator		Lexeme: #
+Reached end of file without parsing errors.
