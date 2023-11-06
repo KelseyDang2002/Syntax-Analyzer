@@ -1,37 +1,37 @@
-keyword			function
+Token: keyword			Lexeme: function
 	<Rat23F> ::= <Opt Function Definitions> # <Opt Declaration List> <Statement List> #
 	<Opt Function Definitions> ::= <Function Definitions> | <Empty>
 	<Function Definitions> ::= <Function> <Function Definitions Prime>
 	<Function> ::= function <Identifier> ( <Opt Parameter List> ) <Opt Declaration List> <Body>
-identifier		AddNums
-separator		(
-identifier		numOne
+Token: identifier		Lexeme: AddNums
+Token: separator		Lexeme: (
+Token: identifier		Lexeme: numOne
 	<Opt Parameter List> ::= <Parameter List> | <Empty>
 	<Parameter List> ::= <Parameter> <Parameter List Prime>
 	<Parameter> ::= <IDs> <Qualifier>
 	<IDs> ::= <Identifier> <IDs Prime>
-keyword			integer
+Token: keyword			Lexeme: integer
 	<IDs Prime> ::= , <IDs> | epsilon
 	<Empty> ::= epsilon
 	<Qualifier> ::= integer | boolean | real
-separator		,
+Token: separator		Lexeme: ,
 	<Parameter List Prime> ::= epsilon | <Parameter List>
-identifier		numTwo
+Token: identifier		Lexeme: numTwo
 	<Parameter List> ::= <Parameter> <Parameter List Prime>
 	<Parameter> ::= <IDs> <Qualifier>
 	<IDs> ::= <Identifier> <IDs Prime>
-keyword			integer
+Token: keyword			Lexeme: integer
 	<IDs Prime> ::= , <IDs> | epsilon
 	<Empty> ::= epsilon
 	<Qualifier> ::= integer | boolean | real
-separator		)
+Token: separator		Lexeme: )
 	<Parameter List Prime> ::= epsilon | <Parameter List>
 	<Empty> ::= epsilon
-separator		{
+Token: separator		Lexeme: {
 	<Empty> ::= epsilon
 	<Body> ::= { <Statement List> }
-keyword			integer
+Token: keyword			Lexeme: integer
 	<Statement List> ::= <Statement> <Statement List Prime>
 	<Statement> ::= <Compound> | <Assign> | <If> | <Return> | <Print> | <Scan> | <While>
-Error R20: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 3.
-Reading token:keyword			integer
+Error: Expected 'if', 'while', 'put', 'get', 'ret', 'identifier' or '{' at line 3.
+Reading token:Token: keyword			Lexeme: integer
